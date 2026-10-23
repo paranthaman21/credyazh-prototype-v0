@@ -1,0 +1,18 @@
+{
+  "name": "CredYazh — Voice Ledger",
+  "short_name": "CredYazh",
+  "description": "Multilingual voice ledger for kirana merchants. From voice to ledger instantly.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e3a5f",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "business", "productivity"],
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
