@@ -1,0 +1,56 @@
+services:
+  # ─── 1. AI Service (FastAPI Gateway) ──────────────────────────
+  - type: web
+    name: credyazh-ai-service
+    env: python
+    rootDir: credyazh/ai-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODELS
+        value: gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.7-flash,gemini-3.8-flash
+
+  # ─── 2. Backend API Server (Node.js Express) ──────────────────
+  - type: web
+    name: credyazh-server
+    env: node
+    rootDir: credyazh/server
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: AI_SERVICE_URL
+        fromService:
+          type: web
+          name: credyazh-ai-service
+          property: host
+      - key: SHOP_ID
+        value: demo-shop
+      - key: SHOP_NAME
+        value: Demo Kirana Store
+      - key: NODE_ENV
+        value: production
+
+  # ─── 3. Client Frontend PWA (Static Site) ────────────────────
+  - type: web
+    name: credyazh-client
+    env: static
+    rootDir: credyazh/client
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    plan: free
+    autoDeploy: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        sync: false
