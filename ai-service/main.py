@@ -7,10 +7,11 @@ the merchant confirms it.
 import logging
 import os
 import time
+import base64
 from typing import Literal, Optional
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from pydantic import BaseModel
 
 load_dotenv()
@@ -204,12 +205,52 @@ def draft_text(body: TextIn):
 
 
 @app.post("/draft/audio", response_model=DraftResponse)
-async def draft_audio(audio: UploadFile = File(...)):
+async def draft_audio(request: Request):
     from google.genai import types
-    data = await audio.read()
+    data = None
+    mime = "audio/wav"
+
+    content_type = request.headers.get("content-type", "").lower()
+
+    # 1. Handle JSON with base64 audio (recommended for serverless environments)
+    if "application/json" in content_type:
+        try:
+            body = await request.json()
+            b64_str = body.get("audio_base64") or body.get("audio") or ""
+            if not b64_str:
+                raise HTTPException(400, "empty audio_base64 in JSON payload")
+            data = base64.b64decode(b64_str)
+            mime = body.get("mime_type") or body.get("mimetype") or "audio/wav"
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(400, f"Invalid base64 audio payload: {e}")
+
+    # 2. Handle raw binary audio (e.g. audio/wav or application/octet-stream)
+    elif "audio/" in content_type or "application/octet-stream" in content_type:
+        data = await request.body()
+        mime = content_type.split(";")[0] or "audio/wav"
+
+    # 3. Handle multipart form-data (with safe exception handling)
+    else:
+        try:
+            form = await request.form()
+            file = form.get("audio")
+            if file and hasattr(file, "read"):
+                data = await file.read()
+                mime = getattr(file, "content_type", "audio/wav")
+            elif file and isinstance(file, (bytes, bytearray)):
+                data = file
+        except Exception as e:
+            logger.warning(f"Multipart parse error: {e}. Trying raw body fallback.")
+            raw = await request.body()
+            if raw:
+                data = raw
+                mime = "audio/wav"
+
     if not data:
-        raise HTTPException(400, "empty audio")
-    mime = audio.content_type or "audio/wav"
+        raise HTTPException(400, "Empty audio data received")
+
     return _ask([types.Part.from_bytes(data=data, mime_type=mime), "Read this note."])
 
 

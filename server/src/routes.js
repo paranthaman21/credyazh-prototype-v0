@@ -223,13 +223,23 @@ async function buildDraftResponse(aiJson, extraMetrics = {}) {
 
 router.post('/draft/audio', upload.single('audio'), async (req, res) => {
   const t0 = Date.now();
-  if (!req.file) return res.status(400).json({ error: 'audio file is required' });
+  let buffer = req.file?.buffer;
+  let mimetype = req.file?.mimetype || 'audio/wav';
+  if (!buffer && req.body?.audio_base64) {
+    try {
+      buffer = Buffer.from(req.body.audio_base64, 'base64');
+      mimetype = req.body.mimetype || 'audio/wav';
+    } catch {
+      return res.status(400).json({ error: 'invalid audio_base64' });
+    }
+  }
+  if (!buffer) return res.status(400).json({ error: 'audio file is required' });
   try {
     const tAi0 = Date.now();
-    const aiJson = await draftFromAudio(req.file.buffer, req.file.mimetype);
+    const aiJson = await draftFromAudio(buffer, mimetype);
     const aiCallMs = Date.now() - tAi0;
     const result = await buildDraftResponse(aiJson, {
-      uploadBufferBytes: req.file.buffer.length,
+      uploadBufferBytes: buffer.length,
       serverTotalMs: Date.now() - t0
     });
     result.metrics.serverTotalMs = Date.now() - t0;
