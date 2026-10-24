@@ -27,11 +27,26 @@ export const api = {
 
   // Ledger & drafts
   ledger: (id) => call(`/customers/${id}/ledger`),
-  draftFromText: (text, signal) => call('/draft/text', { ...json('POST', { text }), signal }),
-  draftFromAudio: (wavBlob, signal) => {
-    const form = new FormData();
-    form.append('audio', wavBlob, 'clip.wav');
-    return call('/draft/audio', { method: 'POST', body: form, signal });
+  draftFromAudio: async (wavBlob, signal) => {
+    try {
+      const base64Audio = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const res = reader.result;
+          resolve(typeof res === 'string' && res.includes(',') ? res.split(',')[1] : res);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(wavBlob);
+      });
+      return call('/draft/audio', {
+        ...json('POST', { audio_base64: base64Audio, mimetype: 'audio/wav' }),
+        signal
+      });
+    } catch {
+      const form = new FormData();
+      form.append('audio', wavBlob, 'clip.wav');
+      return call('/draft/audio', { method: 'POST', body: form, signal });
+    }
   },
 
   // Confirm and reverse ledger entries

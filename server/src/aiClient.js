@@ -12,9 +12,15 @@ async function check(r) {
 }
 
 export async function draftFromAudio(buffer, mimetype) {
-  const form = new FormData();
-  form.append('audio', new Blob([buffer], { type: mimetype }), 'clip');
-  return check(await fetch(`${AI_URL}/draft/audio`, { method: 'POST', body: form }));
+  const audio_base64 = Buffer.from(buffer).toString('base64');
+  return check(await fetch(`${AI_URL}/draft/audio`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      audio_base64,
+      mime_type: mimetype || 'audio/wav'
+    })
+  }));
 }
 
 export async function draftFromText(text) {
