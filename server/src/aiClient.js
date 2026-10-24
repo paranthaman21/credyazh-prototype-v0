@@ -1,4 +1,5 @@
-const AI_URL = process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000';
+const rawAiUrl = process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000';
+const AI_URL = rawAiUrl.replace(/\/+$/, '');
 
 async function check(r) {
   if (!r.ok) {
