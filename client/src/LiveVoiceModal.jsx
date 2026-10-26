@@ -359,7 +359,7 @@ export default function LiveVoiceModal({ isOpen, onClose, onDraftGenerated, onEr
               <span className="reassurance-title">Taking a few seconds longer</span>
             </div>
             <p className="reassurance-text">
-              High Gemini AI traffic detected. CredYazh is processing your note with fallback models. You can wait or switch to manual entry anytime.
+              Taking longer than usual — the AI may be busy or the network is slow. CredYazh will keep trying. You can wait or switch to manual entry anytime.
             </p>
             <div className="reassurance-actions">
               <button
