@@ -19,11 +19,33 @@ load_dotenv()
 logger = logging.getLogger("ai_service")
 logging.basicConfig(level=logging.INFO)
 
-raw_models = os.getenv("GEMINI_MODELS", "gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.7-flash,gemini-3.8-flash")
+# Default extraction chain: fast non-thinking models only.
+# gemini-3.7-flash and gemini-3.8-flash are thinking models; they incur 30–60 s
+# latency on structured JSON extraction and are NOT suitable as sync extraction fallbacks.
+# Add them here only if you have confirmed they are fast enough for your use-case.
+raw_models = os.getenv("GEMINI_MODELS", "gemini-3.5-flash-lite,gemini-3.5-flash")
 MODELS = [m.strip() for m in raw_models.split(",") if m.strip()]
 if not MODELS:
-    MODELS = ["gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3.7-flash", "gemini-3.8-flash"]
+    MODELS = ["gemini-3.5-flash-lite", "gemini-3.5-flash"]
 logger.info(f"Initialized Gemini models: primary='{MODELS[0]}', fallbacks={MODELS[1:]}")
+
+# Per-request Gemini API timeout (ms). The SDK default is effectively infinite.
+# 10 000 ms is aggressive but recoverable via the fallback chain.
+# Raise to 15 000 if you observe legitimate cold-start timeouts on warm deployments.
+REQUEST_TIMEOUT_MS = int(os.getenv("GEMINI_REQUEST_TIMEOUT_MS", "10000"))
+
+# Deterministic local regex fast-path for common Tamil/Tanglish/English structured notes.
+# Completes in < 2 ms and avoids Gemini round-trips for simple transactions.
+ENABLE_LOCAL_EXTRACTOR = os.getenv("ENABLE_LOCAL_EXTRACTOR", "true").lower() == "true"
+
+# Models that support thinking_budget=0 to disable internal chain-of-thought.
+# gemini-3.5-flash-lite does NOT support thinking config — it raises 400 INVALID_ARGUMENT.
+_THINKING_SUPPRESSED_MODELS = {"gemini-3.5-flash", "gemini-3.6-flash"}
+
+# Transient error codes that justify trying the next fallback model.
+_TRANSIENT_HTTP_CODES = {429, 500, 503, 504}
+# Error keywords that indicate quota/traffic problems (also transient).
+_TRANSIENT_KEYWORDS = ("UNAVAILABLE", "RESOURCE_EXHAUSTED", "DEADLINE_EXCEEDED", "quota", "rate limit", "overloaded")
 
 PROMPT = """You read a shopkeeper's spoken or typed note about a customer's account.
 The language may be Tamil, Tanglish (Tamil written in English letters) or English.
@@ -98,6 +120,50 @@ def _client():
     return _cached_client
 
 
+def _build_config(model_name: str, extra_kwargs: dict | None = None) -> "types.GenerateContentConfig":
+    """Build a GenerateContentConfig with consistent defaults.
+
+    Key choices:
+    - temperature=0  : deterministic extraction, no creative variation.
+    - thinking_budget=0 : disables chain-of-thought on supported models (saves 400–600 ms).
+      gemini-3.5-flash-lite does NOT support ThinkingConfig and raises 400;
+      we skip it for that model.
+    - timeout : hard wall-clock limit per model attempt so that a stalled
+      model is abandoned quickly and the next fallback is tried.
+    """
+    from google.genai import types as _t
+    kwargs: dict = dict(
+        system_instruction=PROMPT,
+        response_mime_type="application/json",
+        response_schema=Draft,
+        temperature=0,
+        http_options=_t.HttpOptions(timeout=REQUEST_TIMEOUT_MS),
+    )
+    if model_name in _THINKING_SUPPRESSED_MODELS:
+        # thinking_budget=0 disables chain-of-thought tokens entirely on supported models.
+        kwargs["thinking_config"] = _t.ThinkingConfig(thinking_budget=0)
+    if extra_kwargs:
+        kwargs.update(extra_kwargs)
+    return _t.GenerateContentConfig(**kwargs)
+
+
+def _classify_error(err_str: str) -> str:
+    """Return 'transient', 'auth', 'not_found', or 'blocked'."""
+    if any(code in err_str for code in ("401", "403", "API_KEY_INVALID", "PERMISSION_DENIED")):
+        return "auth"
+    if "404" in err_str or "not found" in err_str.lower():
+        return "not_found"
+    if "model output must contain either output text or tool calls" in err_str:
+        return "blocked"
+    # Transient: server overloaded / rate limited / deadline exceeded
+    if any(kw in err_str for kw in _TRANSIENT_KEYWORDS):
+        return "transient"
+    for code in _TRANSIENT_HTTP_CODES:
+        if str(code) in err_str:
+            return "transient"
+    return "error"
+
+
 def _ask(contents) -> DraftResponse:
     from google.genai import types
     client = _client()
@@ -112,12 +178,7 @@ def _ask(contents) -> DraftResponse:
             resp = client.models.generate_content(
                 model=model_name,
                 contents=contents,
-                config=types.GenerateContentConfig(
-                    system_instruction=PROMPT,
-                    response_mime_type="application/json",
-                    response_schema=Draft,
-                    temperature=0,
-                ),
+                config=_build_config(model_name),
             )
             t_gen = (time.perf_counter() - t_model_start) * 1000
 
@@ -126,10 +187,14 @@ def _ask(contents) -> DraftResponse:
             t_val = (time.perf_counter() - t_val_start) * 1000
             t_total = (time.perf_counter() - t_start) * 1000
 
+            usage = getattr(resp, "usage_metadata", None)
             models_attempted.append({
                 "model": model_name,
                 "latency_ms": round(t_gen, 1),
-                "status": "ok"
+                "status": "ok",
+                "prompt_tokens": getattr(usage, "prompt_token_count", None),
+                "candidate_tokens": getattr(usage, "candidates_token_count", None),
+                "thought_tokens": getattr(usage, "thoughts_token_count", None),
             })
             logger.info(f"Model '{model_name}' succeeded in {t_gen:.0f}ms (total {t_total:.0f}ms)")
 
@@ -148,41 +213,30 @@ def _ask(contents) -> DraftResponse:
         except Exception as e:
             dt = (time.perf_counter() - t_model_start) * 1000
             err_str = str(e)
+            error_class = _classify_error(err_str)
 
-            # Gemini SDK raises this when the model returns a blocked / empty response
-            # (safety filter, unsupported content type, or model not found).
-            # Log it clearly and try the next model instead of propagating the raw SDK message.
-            if "model output must contain either output text or tool calls" in err_str:
+            if error_class == "blocked":
                 logger.warning(
                     f"Model '{model_name}' returned an empty/blocked response after {dt:.0f}ms "
                     "(safety filter or unsupported input). Trying next model."
                 )
-                models_attempted.append({
-                    "model": model_name,
-                    "latency_ms": round(dt, 1),
-                    "status": "blocked",
-                    "error": "empty or blocked response"
-                })
             else:
-                logger.warning(f"Model '{model_name}' failed after {dt:.0f}ms: {err_str}")
-                models_attempted.append({
-                    "model": model_name,
-                    "latency_ms": round(dt, 1),
-                    "status": "error",
-                    "error": err_str[:120]
-                })
+                logger.warning(f"Model '{model_name}' failed ({error_class}) after {dt:.0f}ms: {err_str[:200]}")
 
+            models_attempted.append({
+                "model": model_name,
+                "latency_ms": round(dt, 1),
+                "status": error_class,
+                "error": err_str[:200]
+            })
             last_err = e
 
-            # Fail fast on auth / API key issues — no point trying other models
-            if any(code in err_str for code in ("401", "403", "API_KEY_INVALID", "PERMISSION_DENIED")):
+            # Auth errors: no point trying other models with the same key
+            if error_class == "auth":
                 raise HTTPException(503, f"Gemini API authentication failed: {err_str}")
 
-            # Model not found — fail fast for this model, continue to next
-            if "404" in err_str or "not found" in err_str.lower():
-                logger.warning(f"Model '{model_name}' not found — skipping to next.")
-
-            # Continue to next configured fallback model in GEMINI_MODELS
+            # All other classes (transient, not_found, blocked, generic error):
+            # continue to the next fallback model.
             continue
 
     tried_summary = ", ".join(f"{m['model']} ({m['status']})" for m in models_attempted)
@@ -201,6 +255,32 @@ def health():
 
 @app.post("/draft/text", response_model=DraftResponse)
 def draft_text(body: TextIn):
+    if ENABLE_LOCAL_EXTRACTOR:
+        try:
+            from credyazh_local_extractor import try_local_extract
+            t0 = time.perf_counter()
+            local_draft = try_local_extract(body.text)
+            if local_draft is not None:
+                dt_ms = (time.perf_counter() - t0) * 1000
+                logger.info(f"Local fast-path extracted draft in {dt_ms:.2f}ms for: {body.text[:40]}")
+                local_draft.pop("_source", None)
+                validated = Draft.model_validate(local_draft)
+                return DraftResponse(
+                    **validated.model_dump(),
+                    metrics={
+                        "model": "local_regex_fastpath",
+                        "gemini_latency_ms": 0.0,
+                        "validation_latency_ms": round(dt_ms, 2),
+                        "ai_total_latency_ms": round(dt_ms, 2),
+                        "models_attempted": [{
+                            "model": "local_regex_fastpath",
+                            "latency_ms": round(dt_ms, 2),
+                            "status": "ok"
+                        }]
+                    }
+                )
+        except Exception as e:
+            logger.warning(f"Local extraction error: {e}, falling through to Gemini")
     return _ask([body.text])
 
 
