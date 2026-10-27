@@ -169,7 +169,9 @@ CredYazh is engineered like a double-entry banking system to guarantee mathemati
 ### Multi-Model Automatic Failover Chain
 To protect counter service against 503 high-demand spikes or cloud rate limits, the AI service implements an automatic fallback cascade:
 
-$$\mathbf{\text{gemini-3.5-flash-lite}} \xrightarrow{\text{on error / busy}} \mathbf{\text{gemini-3.5-flash}} \xrightarrow{\text{failover}} \mathbf{\text{gemini-3.7-flash}} \xrightarrow{\text{fallback}} \mathbf{\text{gemini-3.8-flash}}$$
+$$\mathbf{\text{gemini-3.5-flash-lite}} \xrightarrow{\text{on error / busy}} \mathbf{\text{gemini-3.5-flash}}$$
+
+The synchronous extraction chain intentionally uses only fast models so it can complete within the API request timeout. Thinking models such as Gemini 3.7/3.8 Flash are excluded because they can take 30–60 seconds for structured extraction.
 
 ### W3C `Server-Timing` Instrumentation
 Every draft response includes a standard `Server-Timing` HTTP header for transparent latency inspection in browser developer tools:
@@ -274,7 +276,7 @@ cp .env.example .env
 # Launch FastAPI server
 uvicorn main:app --port 8000 --reload
 ```
-*Health Check:* Open `http://localhost:8000/health`. Expected response: `{"ok": true, "primary_model": "gemini-3.5-flash-lite", "total_models": 4}`.
+*Health Check:* Open `http://localhost:8000/health`. Expected response includes `{"ok": true, "primary_model": "gemini-3.5-flash-lite", "total_models": 2}` when using the default model configuration.
 
 ---
 
@@ -358,7 +360,7 @@ npm test
 | **Customer Settle-Before-Delete Rule** | **Working** | Active balance blocks deletion (HTTP 400). Settle to ₹0.00 allows archiving. |
 | **Multilingual WhatsApp Statement Generator** | **Working** | Generates Tamil, Tanglish, and English statements with prefilled customer phone. |
 | **Real-time Canvas Audio Oscilloscope** | **Working** | 60 FPS HTML5 Canvas equalizing voice frequency bins in real time. |
-| **Multi-Model Fallback Engine** | **Working** | Cascades across 4 models upon 503 high demand or quota errors. |
+| **Multi-Model Fallback Engine** | **Working** | Cascades across two fast models upon 503 high demand or quota errors. |
 | **W3C Server-Timing Observability** | **Working** | Transparent backend timing headers injected into every draft response. |
 | *Multi-Shop Tenant Auth (JWT)* | *Roadmap* | Prototype operates under single shop (`demo-shop`). Real multi-tenant login planned. |
 | *ServiceWorker Offline Auto-Sync Queue* | *Roadmap* | Manual entry works offline; background IndexedDB sync planned for Phase 2. |

@@ -13,6 +13,7 @@ from typing import Literal, Optional
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from pydantic import BaseModel
+from google.genai import types
 
 load_dotenv()
 
@@ -87,13 +88,13 @@ class Operation(BaseModel):
 
 
 class Draft(BaseModel):
-    kind: Literal["credit", "payment", "combined"]
-    customer_name: str
+    kind: Literal["credit", "payment", "combined"] = "credit"
+    customer_name: str = ""
     items: list[Item] = []
     total_rupees: Optional[float] = None
     operations: list[Operation] = []
     transcript: str = ""
-    confidence: Literal["high", "medium", "low"]
+    confidence: Literal["high", "medium", "low"] = "high"
 
 
 class DraftResponse(Draft):
@@ -120,7 +121,7 @@ def _client():
     return _cached_client
 
 
-def _build_config(model_name: str, extra_kwargs: dict | None = None) -> "types.GenerateContentConfig":
+def _build_config(model_name: str, extra_kwargs: dict | None = None) -> types.GenerateContentConfig:
     """Build a GenerateContentConfig with consistent defaults.
 
     Key choices:
@@ -131,20 +132,19 @@ def _build_config(model_name: str, extra_kwargs: dict | None = None) -> "types.G
     - timeout : hard wall-clock limit per model attempt so that a stalled
       model is abandoned quickly and the next fallback is tried.
     """
-    from google.genai import types as _t
     kwargs: dict = dict(
         system_instruction=PROMPT,
         response_mime_type="application/json",
         response_schema=Draft,
         temperature=0,
-        http_options=_t.HttpOptions(timeout=REQUEST_TIMEOUT_MS),
+        http_options=types.HttpOptions(timeout=REQUEST_TIMEOUT_MS),
     )
     if model_name in _THINKING_SUPPRESSED_MODELS:
         # thinking_budget=0 disables chain-of-thought tokens entirely on supported models.
-        kwargs["thinking_config"] = _t.ThinkingConfig(thinking_budget=0)
+        kwargs["thinking_config"] = types.ThinkingConfig(thinking_budget=0)
     if extra_kwargs:
         kwargs.update(extra_kwargs)
-    return _t.GenerateContentConfig(**kwargs)
+    return types.GenerateContentConfig(**kwargs)
 
 
 def _classify_error(err_str: str) -> str:
@@ -164,14 +164,14 @@ def _classify_error(err_str: str) -> str:
     return "error"
 
 
-def _ask(contents) -> DraftResponse:
-    from google.genai import types
+def _ask(contents, model_list: list[str] | None = None) -> DraftResponse:
     client = _client()
     t_start = time.perf_counter()
     models_attempted = []
     last_err = None
+    target_models = model_list or MODELS
 
-    for model_name in MODELS:
+    for model_name in target_models:
         t_model_start = time.perf_counter()
         try:
             logger.info(f"Draft extraction attempting model '{model_name}'")
@@ -182,8 +182,17 @@ def _ask(contents) -> DraftResponse:
             )
             t_gen = (time.perf_counter() - t_model_start) * 1000
 
+            raw_output = (resp.text or "").strip()
+            if raw_output.startswith("```"):
+                lines = raw_output.splitlines()
+                if lines and lines[0].startswith("```"):
+                    lines = lines[1:]
+                if lines and lines[-1].strip() == "```":
+                    lines = lines[:-1]
+                raw_output = "\n".join(lines).strip()
+
             t_val_start = time.perf_counter()
-            validated = Draft.model_validate_json(resp.text)
+            validated = Draft.model_validate_json(raw_output)
             t_val = (time.perf_counter() - t_val_start) * 1000
             t_total = (time.perf_counter() - t_start) * 1000
 
@@ -240,21 +249,76 @@ def _ask(contents) -> DraftResponse:
             continue
 
     tried_summary = ", ".join(f"{m['model']} ({m['status']})" for m in models_attempted)
-    raise HTTPException(502, f"All configured models failed: [{tried_summary}]. Last error: {last_err}")
+    logger.warning(f"All configured models failed: [{tried_summary}]. Last error: {last_err}. Providing manual fallback draft.")
+    t_fallback_total = (time.perf_counter() - t_start) * 1000
+
+    # Build concise diagnostic trace for models tried
+    trace_parts = []
+    for m in models_attempted:
+        mod_name = m.get("model", "gemini")
+        st = m.get("status", "err")
+        err = str(m.get("error", ""))
+        if "503" in err or "UNAVAILABLE" in err:
+            code = "503"
+        elif "504" in err or "timeout" in err.lower() or "deadline" in err.lower() or st == "transient":
+            code = "timeout"
+        else:
+            code = st
+        trace_parts.append(f"{mod_name}: {code}")
+    trace_parts.append("Manual fallback")
+    failover_trace = " → ".join(trace_parts)
+
+    return DraftResponse(
+        kind="credit",
+        customer_name="",
+        items=[],
+        total_rupees=None,
+        operations=[],
+        transcript="",
+        confidence="low",
+        metrics={
+            "model": "manual_fallback",
+            "provider": "manual_fallback",
+            "gemini_latency_ms": 0.0,
+            "validation_latency_ms": 0.0,
+            "ai_total_latency_ms": round(t_fallback_total, 1),
+            "models_attempted": models_attempted,
+            "failover_trace": failover_trace,
+            "fallback_reason": f"All configured models failed: [{tried_summary}]"
+        }
+    )
+
+
+_orchestrator = None
+
+
+def _get_orchestrator():
+    global _orchestrator
+    if _orchestrator is None:
+        from failover_orchestrator import FailoverOrchestrator
+        _orchestrator = FailoverOrchestrator()
+    return _orchestrator
 
 
 @app.get("/health")
 def health():
-    return {
+    data = {
         "ok": True,
         "primary_model": MODELS[0] if MODELS else None,
         "configured_models": MODELS,
-        "total_models": len(MODELS)
+        "total_models": len(MODELS),
+        "failover_enabled": os.getenv("AI_FAILOVER_ENABLED", "false").lower() in ("true", "1", "yes"),
     }
+    if data["failover_enabled"]:
+        data["failover_status"] = _get_orchestrator().get_health_status()
+    return data
 
 
 @app.post("/draft/text", response_model=DraftResponse)
 def draft_text(body: TextIn):
+    if os.getenv("AI_FAILOVER_ENABLED", "false").lower() in ("true", "1", "yes"):
+        return _get_orchestrator().extract_text(body.text)
+
     if ENABLE_LOCAL_EXTRACTOR:
         try:
             from credyazh_local_extractor import try_local_extract
@@ -331,7 +395,14 @@ async def draft_audio(request: Request):
     if not data:
         raise HTTPException(400, "Empty audio data received")
 
-    return _ask([types.Part.from_bytes(data=data, mime_type=mime), "Read this note."])
+    # Route through the failover orchestrator when enabled so the 8-second
+    # Gemini deadline is enforced and Groq Whisper failover is triggered.
+    if os.getenv("AI_FAILOVER_ENABLED", "false").lower() in ("true", "1", "yes"):
+        return _get_orchestrator().extract_audio(data, mime)
+
+    # Multimodal-capable full models handle audio robustly; prioritize them over lite
+    audio_models = [m for m in MODELS if "lite" not in m] + [m for m in MODELS if "lite" in m]
+    return _ask([types.Part.from_bytes(data=data, mime_type=mime), "Read this note."], model_list=audio_models)
 
 
 # ─── WhatsApp message generation ─────────────────────────────

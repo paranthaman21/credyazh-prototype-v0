@@ -1,0 +1,2166 @@
+{
+  "summary": {
+    "model": "llama-3.3-70b-versatile",
+    "total_cases": 42,
+    "is_mock_run": true,
+    "metrics": {
+      "json_validity_rate_pct": 100.0,
+      "customer_resolution_accuracy_pct": 100.0,
+      "intent_classification_accuracy_pct": 100.0,
+      "financial_balance_accuracy_pct": 100.0,
+      "item_extraction_accuracy_pct": 100.0,
+      "hallucination_rate_pct": 0.0,
+      "latency_p50_ms": 40.69,
+      "latency_p95_ms": 41.07,
+      "latency_p99_ms": 42.41
+    },
+    "acceptance_criteria": {
+      "json_validity_passed": true,
+      "zero_hallucination_passed": true,
+      "financial_accuracy_passed": true,
+      "intent_accuracy_passed": true,
+      "latency_p95_passed": true
+    },
+    "gate_decision": "PASS"
+  },
+  "detailed_results": [
+    {
+      "id": "REAL-01",
+      "category": "",
+      "input_text": "Bharat 2 kg thakkali 2 kg vengayam 60 rupai kadan",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 42.96,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Bharat",
+        "items": [
+          {
+            "name": "Tomato",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Onion",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 60.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tomato",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Onion",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 60.0
+          }
+        ],
+        "transcript": "Bharat 2 kg thakkali 2 kg vengayam 60 rupai kadan",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-02",
+      "category": "",
+      "input_text": "Sanjay oru kilo vengayam, oru kilo thakkali, rendu kilo ultham paruppu, motham 270 rupees baki.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 41.07,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Sanjay",
+        "items": [
+          {
+            "name": "Urad Dal",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Tomato",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Onion",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Dal",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 270.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Urad Dal",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Tomato",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Onion",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Dal",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 270.0
+          }
+        ],
+        "transcript": "Sanjay oru kilo vengayam, oru kilo thakkali, rendu kilo ultham paruppu, motham 270 rupees baki.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-03",
+      "category": "",
+      "input_text": "Kishore, laesh packet rendu, 4 rooba",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.58,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kishore",
+        "items": [
+          {
+            "name": "Lays",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 4.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Lays",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 4.0
+          }
+        ],
+        "transcript": "Kishore, laesh packet rendu, 4 rooba",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-04",
+      "category": "",
+      "input_text": "Kamal, arai kilo thakkali, arai kilo vengayam 170 ruba kadan",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.37,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kamal",
+        "items": [
+          {
+            "name": "Tomato",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Onion",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 170.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tomato",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Onion",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 170.0
+          }
+        ],
+        "transcript": "Kamal, arai kilo thakkali, arai kilo vengayam 170 ruba kadan",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-05",
+      "category": "",
+      "input_text": "Krishna, 3 kg chakkarai, 2 Lays packet, Maggi 2 packet, mottham 150 ruba kadan.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.52,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Krishna",
+        "items": [
+          {
+            "name": "Sugar",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Lays",
+            "quantity": 0.5,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Maggi",
+            "quantity": 0.5,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 150.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Sugar",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Lays",
+                "quantity": 0.5,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Maggi",
+                "quantity": 0.5,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 150.0
+          }
+        ],
+        "transcript": "Krishna, 3 kg chakkarai, 2 Lays packet, Maggi 2 packet, mottham 150 ruba kadan.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-06",
+      "category": "",
+      "input_text": "Kumar account-la 1 kg sakkarai, 140 rupees",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.57,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kumar",
+        "items": [
+          {
+            "name": "Sugar",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 140.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Sugar",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 140.0
+          }
+        ],
+        "transcript": "Kumar account-la 1 kg sakkarai, 140 rupees",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-07",
+      "category": "",
+      "input_text": "Sanjay 100 rupa koduthirukan",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.61,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Sanjay",
+        "items": [],
+        "total_rupees": 100.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 100.0
+          }
+        ],
+        "transcript": "Sanjay 100 rupa koduthirukan",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-08",
+      "category": "",
+      "input_text": "Kamal rendu paracetamol tablet athu kapram cofslet tablet rendu, motham 50 rupees",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.71,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kamal",
+        "items": [
+          {
+            "name": "Paracetamol Tablet",
+            "quantity": 0.5,
+            "unit": "piece",
+            "price_rupees": null
+          },
+          {
+            "name": "Cofslet Tablet",
+            "quantity": 0.5,
+            "unit": "piece",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 50.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Paracetamol Tablet",
+                "quantity": 0.5,
+                "unit": "piece",
+                "price_rupees": null
+              },
+              {
+                "name": "Cofslet Tablet",
+                "quantity": 0.5,
+                "unit": "piece",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 50.0
+          }
+        ],
+        "transcript": "Kamal rendu paracetamol tablet athu kapram cofslet tablet rendu, motham 50 rupees",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-09",
+      "category": "",
+      "input_text": "Ajit 3 kg thakkali 40 rupees",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.55,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Ajit",
+        "items": [
+          {
+            "name": "Tomato",
+            "quantity": 3.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 40.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tomato",
+                "quantity": 3.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 40.0
+          }
+        ],
+        "transcript": "Ajit 3 kg thakkali 40 rupees",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-10",
+      "category": "",
+      "input_text": "Shanmugam, 4 eggs, 36 rupees",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.35,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Shanmugam",
+        "items": [
+          {
+            "name": "Eggs",
+            "quantity": 3.0,
+            "unit": "piece",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 36.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Eggs",
+                "quantity": 3.0,
+                "unit": "piece",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 36.0
+          }
+        ],
+        "transcript": "Shanmugam, 4 eggs, 36 rupees",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-11",
+      "category": "",
+      "input_text": "Palanivel paruppu arai kilo ambadhu roobaa",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 41.62,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "",
+        "items": [
+          {
+            "name": "Dal",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 50.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Dal",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 50.0
+          }
+        ],
+        "transcript": "Palanivel paruppu arai kilo ambadhu roobaa",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "REAL-12",
+      "category": "",
+      "input_text": "Ambani 3 kilo vengayam 50 roopai",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.67,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Ambani",
+        "items": [
+          {
+            "name": "Onion",
+            "quantity": 3.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 50.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Onion",
+                "quantity": 3.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 50.0
+          }
+        ],
+        "transcript": "Ambani 3 kilo vengayam 50 roopai",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-13",
+      "category": "",
+      "input_text": "Rathanthatha 10 kilo ulthamparuppu, antha 4 mutta, antha maggi 2 packet, 2 chips packet, motham 370 rupees baki.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.75,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Rathanthatha",
+        "items": [
+          {
+            "name": "Urad Dal",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Dal",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Eggs",
+            "quantity": 2.0,
+            "unit": "piece",
+            "price_rupees": null
+          },
+          {
+            "name": "Maggi",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Chips",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 370.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Urad Dal",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Dal",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Eggs",
+                "quantity": 2.0,
+                "unit": "piece",
+                "price_rupees": null
+              },
+              {
+                "name": "Maggi",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Chips",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 370.0
+          }
+        ],
+        "transcript": "Rathanthatha 10 kilo ulthamparuppu, antha 4 mutta, antha maggi 2 packet, 2 chips packet, motham 370 rupees baki.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-14",
+      "category": "",
+      "input_text": "Sanjay 100 rupa koduthutaan",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.23,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Sanjay",
+        "items": [],
+        "total_rupees": 100.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 100.0
+          }
+        ],
+        "transcript": "Sanjay 100 rupa koduthutaan",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-15",
+      "category": "",
+      "input_text": "Bharat oru kilo arisi, vengayam oru kilo, thakkali rendu kilo, paitham paruppu arai kilo, motham 750 roobaa.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 41.0,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Bharat",
+        "items": [
+          {
+            "name": "Tomato",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Onion",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Dal",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Moong Dal",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Rice",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 750.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tomato",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Onion",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Dal",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Moong Dal",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Rice",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 750.0
+          }
+        ],
+        "transcript": "Bharat oru kilo arisi, vengayam oru kilo, thakkali rendu kilo, paitham paruppu arai kilo, motham 750 roobaa.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-16",
+      "category": "",
+      "input_text": "Sanjay oru kilo puli 150 rupai",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.83,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Sanjay",
+        "items": [
+          {
+            "name": "Tamarind",
+            "quantity": 5.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 150.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tamarind",
+                "quantity": 5.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 150.0
+          }
+        ],
+        "transcript": "Sanjay oru kilo puli 150 rupai",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-17",
+      "category": "",
+      "input_text": "Chandru, godhumai ara kilo, pachai milakai, vengayam, mottham serthu 500 ruba.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.44,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Chandru",
+        "items": [
+          {
+            "name": "Wheat",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Green Chillies",
+            "quantity": 0.5,
+            "unit": null,
+            "price_rupees": null
+          },
+          {
+            "name": "Onion",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 500.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Wheat",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Green Chillies",
+                "quantity": 0.5,
+                "unit": null,
+                "price_rupees": null
+              },
+              {
+                "name": "Onion",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 500.0
+          }
+        ],
+        "transcript": "Chandru, godhumai ara kilo, pachai milakai, vengayam, mottham serthu 500 ruba.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-18",
+      "category": "",
+      "input_text": "Kumar oru kilo seeni 30 rooba",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.55,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kumar",
+        "items": [
+          {
+            "name": "Sugar",
+            "quantity": 3.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 30.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Sugar",
+                "quantity": 3.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 30.0
+          }
+        ],
+        "transcript": "Kumar oru kilo seeni 30 rooba",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-19",
+      "category": "",
+      "input_text": "Sanjay Tamarind 1kg 40 rupees",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.45,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "",
+        "items": [
+          {
+            "name": "Tamarind",
+            "quantity": 4.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 40.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tamarind",
+                "quantity": 4.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 40.0
+          }
+        ],
+        "transcript": "Sanjay Tamarind 1kg 40 rupees",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "REAL-20",
+      "category": "",
+      "input_text": "Sanjay elaichi ara kilo, pattai ara kilo, lavangam lavangappu oru kilo, approm sombu ara kilo, manja thoole kaalu kilo, puli ara kilo, ellathala mothom oru aayiram kanaku",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.81,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "",
+        "items": [
+          {
+            "name": "Tamarind",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Cardamom",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Cinnamon",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Clove",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Fennel Seeds",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Turmeric Powder",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 1000.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tamarind",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Cardamom",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Cinnamon",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Clove",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Fennel Seeds",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Turmeric Powder",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 1000.0
+          }
+        ],
+        "transcript": "Sanjay elaichi ara kilo, pattai ara kilo, lavangam lavangappu oru kilo, approm sombu ara kilo, manja thoole kaalu kilo, puli ara kilo, ellathala mothom oru aayiram kanaku",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "REAL-21",
+      "category": "",
+      "input_text": "Praveen oru kilo sakkarai, rendu Maggi packet, oru milk biscuit, total a oru 150 kadan.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.67,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Praveen",
+        "items": [
+          {
+            "name": "Sugar",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Milk Biscuit",
+            "quantity": 0.5,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Maggi",
+            "quantity": 0.5,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 150.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Sugar",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Milk Biscuit",
+                "quantity": 0.5,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Maggi",
+                "quantity": 0.5,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 150.0
+          }
+        ],
+        "transcript": "Praveen oru kilo sakkarai, rendu Maggi packet, oru milk biscuit, total a oru 150 kadan.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-22",
+      "category": "",
+      "input_text": "Chandru andha 100 rooba kuduthutan,ana irukara total la konjam balance kaamikkanum, 100 rooba kuduthukan avlo dhan",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.79,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "",
+        "items": [],
+        "total_rupees": 100.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 100.0
+          }
+        ],
+        "transcript": "Chandru andha 100 rooba kuduthutan,ana irukara total la konjam balance kaamikkanum, 100 rooba kuduthukan avlo dhan",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "REAL-23",
+      "category": "",
+      "input_text": "Varadhan 100 rupa koduthurukan",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.94,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Varadhan",
+        "items": [],
+        "total_rupees": 100.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 100.0
+          }
+        ],
+        "transcript": "Varadhan 100 rupa koduthurukan",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-24",
+      "category": "",
+      "input_text": "Kumar account la 1 kg sakkarai rendu packet paal total la vandhu 140 rupees sethuka",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 41.05,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kumar",
+        "items": [
+          {
+            "name": "Sugar",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Milk",
+            "quantity": 0.5,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 140.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Sugar",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Milk",
+                "quantity": 0.5,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 140.0
+          }
+        ],
+        "transcript": "Kumar account la 1 kg sakkarai rendu packet paal total la vandhu 140 rupees sethuka",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-25",
+      "category": "",
+      "input_text": "Kumar 200 rupees kuduthutu, 70 rupees-ku arisi vaanginaan",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.91,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "combined",
+        "customer_name": "Kumar",
+        "items": [
+          {
+            "name": "Rice",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 70.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 200.0
+          },
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Rice",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 70.0
+          }
+        ],
+        "transcript": "Kumar 200 rupees kuduthutu, 70 rupees-ku arisi vaanginaan",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-26",
+      "category": "",
+      "input_text": "Kumar 200 rupees kuduthaan athu kapram 70 rupees ki arisi vaangirukaan",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.85,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "combined",
+        "customer_name": "Kumar",
+        "items": [
+          {
+            "name": "Rice",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 70.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 200.0
+          },
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Rice",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 70.0
+          }
+        ],
+        "transcript": "Kumar 200 rupees kuduthaan athu kapram 70 rupees ki arisi vaangirukaan",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-27",
+      "category": "",
+      "input_text": "Rajanikanth 2 kilo vengayam, apparam tomato, verakkadalai yarai kilo, apparam 2 mutta 170 roova kadanla potukko.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.95,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Rajanikanth",
+        "items": [
+          {
+            "name": "Tomato",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Onion",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Eggs",
+            "quantity": 0.5,
+            "unit": "piece",
+            "price_rupees": null
+          },
+          {
+            "name": "Peanuts",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 170.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tomato",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Onion",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Eggs",
+                "quantity": 0.5,
+                "unit": "piece",
+                "price_rupees": null
+              },
+              {
+                "name": "Peanuts",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 170.0
+          }
+        ],
+        "transcript": "Rajanikanth 2 kilo vengayam, apparam tomato, verakkadalai yarai kilo, apparam 2 mutta 170 roova kadanla potukko.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-28",
+      "category": "",
+      "input_text": "Rajanikanth thandhura kuduthurukaru",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.3,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "",
+        "items": [],
+        "total_rupees": null,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": null
+          }
+        ],
+        "transcript": "Rajanikanth thandhura kuduthurukaru",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "REAL-29",
+      "category": "",
+      "input_text": "Kumar account la oru 1/2 kg thakkali athukku aprom oru 3 kg vengayam mottam oru 50 rova pottuko",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.64,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kumar",
+        "items": [
+          {
+            "name": "Tomato",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Onion",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 50.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tomato",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Onion",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 50.0
+          }
+        ],
+        "transcript": "Kumar account la oru 1/2 kg thakkali athukku aprom oru 3 kg vengayam mottam oru 50 rova pottuko",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-30",
+      "category": "",
+      "input_text": "Rendu Maggi packet, rendu mutta, oru Colgate paste, nuru rooba",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.38,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "",
+        "items": [
+          {
+            "name": "Eggs",
+            "quantity": 2.0,
+            "unit": "piece",
+            "price_rupees": null
+          },
+          {
+            "name": "Maggi",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Colgate Paste",
+            "quantity": 2.0,
+            "unit": "piece",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 100.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Eggs",
+                "quantity": 2.0,
+                "unit": "piece",
+                "price_rupees": null
+              },
+              {
+                "name": "Maggi",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Colgate Paste",
+                "quantity": 2.0,
+                "unit": "piece",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 100.0
+          }
+        ],
+        "transcript": "Rendu Maggi packet, rendu mutta, oru Colgate paste, nuru rooba",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "REAL-31",
+      "category": "",
+      "input_text": "Sanjay 100 rupaa kuduthirukaan",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 41.02,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Sanjay",
+        "items": [],
+        "total_rupees": 100.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 100.0
+          }
+        ],
+        "transcript": "Sanjay 100 rupaa kuduthirukaan",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-32",
+      "category": "",
+      "input_text": "Chandru oru kilo thakkali 50 rova",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.82,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Chandru",
+        "items": [
+          {
+            "name": "Tomato",
+            "quantity": 5.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 50.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tomato",
+                "quantity": 5.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 50.0
+          }
+        ],
+        "transcript": "Chandru oru kilo thakkali 50 rova",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-33",
+      "category": "",
+      "input_text": "Meenakshi 100 rupees or 1 kg tomato",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.45,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Meenakshi",
+        "items": [
+          {
+            "name": "Tomato",
+            "quantity": 100.0,
+            "unit": "g",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 100.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tomato",
+                "quantity": 100.0,
+                "unit": "g",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 100.0
+          }
+        ],
+        "transcript": "Meenakshi 100 rupees or 1 kg tomato",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-34",
+      "category": "",
+      "input_text": "1/2 kilo godhumai, 1/2 kilo rava, 1/4 kilo ulunthamparuppu, 120 rupees Ajith perla",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.72,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Ajith",
+        "items": [
+          {
+            "name": "Urad Dal",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Wheat",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Rava",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Dal",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 120.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Urad Dal",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Wheat",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Rava",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Dal",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 120.0
+          }
+        ],
+        "transcript": "1/2 kilo godhumai, 1/2 kilo rava, 1/4 kilo ulunthamparuppu, 120 rupees Ajith perla",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-35",
+      "category": "",
+      "input_text": "Kaviya, 2 kilo arisi, 2 packet Maggi, 85 rupees.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.77,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kaviya",
+        "items": [
+          {
+            "name": "Rice",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Maggi",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 85.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Rice",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Maggi",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 85.0
+          }
+        ],
+        "transcript": "Kaviya, 2 kilo arisi, 2 packet Maggi, 85 rupees.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-36",
+      "category": "",
+      "input_text": "Kavya maran 2 kilo arisi 2 kilo vengayam 65 rupai",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.79,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kavya maran",
+        "items": [
+          {
+            "name": "Onion",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Rice",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 65.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Onion",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Rice",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 65.0
+          }
+        ],
+        "transcript": "Kavya maran 2 kilo arisi 2 kilo vengayam 65 rupai",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-37",
+      "category": "",
+      "input_text": "Raghu 1 kg onion 20 rupees",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.79,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Raghu",
+        "items": [
+          {
+            "name": "Onion",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 20.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Onion",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 20.0
+          }
+        ],
+        "transcript": "Raghu 1 kg onion 20 rupees",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-38",
+      "category": "",
+      "input_text": "Rahul 10 rupees kuduthirukanga",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.68,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Rahul",
+        "items": [],
+        "total_rupees": 10.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 10.0
+          }
+        ],
+        "transcript": "Rahul 10 rupees kuduthirukanga",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-39",
+      "category": "",
+      "input_text": "Vijay, rendu oodhavathi packet, 6 kg vengayam, rendu maggi",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 41.01,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Vijay",
+        "items": [
+          {
+            "name": "Onion",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Maggi",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Incense Sticks",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": null,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Onion",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Maggi",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Incense Sticks",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": null
+          }
+        ],
+        "transcript": "Vijay, rendu oodhavathi packet, 6 kg vengayam, rendu maggi",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "REAL-40",
+      "category": "",
+      "input_text": "Shanmuga Pulla Balaji 1 kg pasiparuppu 130 rupai",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.48,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Balaji",
+        "items": [
+          {
+            "name": "Dal",
+            "quantity": 3.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Moong Dal",
+            "quantity": 3.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 130.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Dal",
+                "quantity": 3.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Moong Dal",
+                "quantity": 3.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 130.0
+          }
+        ],
+        "transcript": "Shanmuga Pulla Balaji 1 kg pasiparuppu 130 rupai",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "REAL-41",
+      "category": "",
+      "input_text": "Kimu got 1 kg chocolates, 4 packets of chips and 1 liter of juice total 500",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.53,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "",
+        "items": [
+          {
+            "name": "Chocolates",
+            "quantity": 4.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Chips",
+            "quantity": 4.0,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Juice",
+            "quantity": 4.0,
+            "unit": "litre",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 500.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Chocolates",
+                "quantity": 4.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Chips",
+                "quantity": 4.0,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Juice",
+                "quantity": 4.0,
+                "unit": "litre",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 500.0
+          }
+        ],
+        "transcript": "Kimu got 1 kg chocolates, 4 packets of chips and 1 liter of juice total 500",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "REAL-42",
+      "category": "",
+      "input_text": "Arumugam payyan Balaji account la oru 20 rupa kanakku rendu milk biscuit",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.56,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Balaji",
+        "items": [
+          {
+            "name": "Milk Biscuit",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 20.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Milk Biscuit",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 20.0
+          }
+        ],
+        "transcript": "Arumugam payyan Balaji account la oru 20 rupa kanakku rendu milk biscuit",
+        "confidence": "high"
+      }
+    }
+  ]
+}

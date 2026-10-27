@@ -205,7 +205,11 @@ async function buildDraftResponse(aiJson, extraMetrics = {}) {
   const dbDurationMs = Date.now() - tDb0;
   const metrics = {
     geminiModel: aiJson.metrics?.model || 'unknown',
-    geminiLatencyMs: aiJson.metrics?.gemini_latency_ms || 0,
+    provider: aiJson.metrics?.provider || 'gemini',
+    failoverTriggered: Boolean(aiJson.metrics?.failover_triggered),
+    failoverTrace: aiJson.metrics?.failover_trace || '',
+    fallbackReason: aiJson.metrics?.manual_fallback_reason || aiJson.metrics?.fallback_reason || '',
+    geminiLatencyMs: aiJson.metrics?.gemini_latency_ms || aiJson.metrics?.provider_latency_ms || 0,
     validationLatencyMs: aiJson.metrics?.validation_latency_ms || 0,
     aiTotalLatencyMs: aiJson.metrics?.ai_total_latency_ms || 0,
     modelsAttempted: aiJson.metrics?.models_attempted || [],
