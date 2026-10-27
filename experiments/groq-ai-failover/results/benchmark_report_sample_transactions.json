@@ -1,0 +1,1726 @@
+{
+  "summary": {
+    "model": "llama-3.3-70b-versatile",
+    "total_cases": 35,
+    "is_mock_run": true,
+    "metrics": {
+      "json_validity_rate_pct": 100.0,
+      "customer_resolution_accuracy_pct": 100.0,
+      "intent_classification_accuracy_pct": 100.0,
+      "financial_balance_accuracy_pct": 91.43,
+      "item_extraction_accuracy_pct": 100.0,
+      "hallucination_rate_pct": 0.0,
+      "latency_p50_ms": 40.63,
+      "latency_p95_ms": 42.93,
+      "latency_p99_ms": 43.57
+    },
+    "acceptance_criteria": {
+      "json_validity_passed": true,
+      "zero_hallucination_passed": true,
+      "financial_accuracy_passed": true,
+      "intent_accuracy_passed": true,
+      "latency_p95_passed": true
+    },
+    "gate_decision": "PASS"
+  },
+  "detailed_results": [
+    {
+      "id": "TC-01",
+      "category": "CAT-01",
+      "input_text": "முருகன் கணக்கில் ரெண்டு கிலோ சர்க்கரை, மொத்தம் தொண்ணூறு ரூபாய் வரவு வை.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 42.73,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Murugan",
+        "items": [
+          {
+            "name": "Sugar",
+            "quantity": 2.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 90.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Sugar",
+                "quantity": 2.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 90.0
+          }
+        ],
+        "transcript": "முருகன் கணக்கில் ரெண்டு கிலோ சர்க்கரை, மொத்தம் தொண்ணூறு ரூபாய் வரவு வை.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-02",
+      "category": "CAT-01",
+      "input_text": "செல்வம் அண்ணனுக்கு ஒரு லிட்டர் ஆயில், அரை கிலோ உளுந்து, மொத்தம் நூற்றி எண்பது ரூபாய் கடனில் போடு.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.6,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Selvam",
+        "items": [
+          {
+            "name": "Cooking Oil",
+            "quantity": 0.5,
+            "unit": "litre",
+            "price_rupees": null
+          },
+          {
+            "name": "Urad Dal",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 180.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Cooking Oil",
+                "quantity": 0.5,
+                "unit": "litre",
+                "price_rupees": null
+              },
+              {
+                "name": "Urad Dal",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 180.0
+          }
+        ],
+        "transcript": "செல்வம் அண்ணனுக்கு ஒரு லிட்டர் ஆயில், அரை கிலோ உளுந்து, மொத்தம் நூற்றி எண்பது ரூபாய் கடனில் போடு.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-03",
+      "category": "CAT-01",
+      "input_text": "கண்ணன் பழைய பாக்கிக்கு ஐந்நூறு ரூபாய் கொடுத்தார்.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.34,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Kannan",
+        "items": [],
+        "total_rupees": 500.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 500.0
+          }
+        ],
+        "transcript": "கண்ணன் பழைய பாக்கிக்கு ஐந்நூறு ரூபாய் கொடுத்தார்.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-04",
+      "category": "CAT-01",
+      "input_text": "ராதா அக்காவுக்கு அஞ்சு பாக்கெட் பிஸ்கட், ஒரு கிலோ கோதுமை மாவு, நூறு கிராம் மிளகுத்தூள், மொத்தம் நூற்றி நாற்பது ரூபாய்.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.64,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Radha",
+        "items": [
+          {
+            "name": "Biscuits",
+            "quantity": 5.0,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Wheat Flour",
+            "quantity": 5.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Pepper Powder",
+            "quantity": 5.0,
+            "unit": "g",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 140.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Biscuits",
+                "quantity": 5.0,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Wheat Flour",
+                "quantity": 5.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Pepper Powder",
+                "quantity": 5.0,
+                "unit": "g",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 140.0
+          }
+        ],
+        "transcript": "ராதா அக்காவுக்கு அஞ்சு பாக்கெட் பிஸ்கட், ஒரு கிலோ கோதுமை மாவு, நூறு கிராம் மிளகுத்தூள், மொத்தம் நூற்றி நாற்பது ரூபாய்.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-05",
+      "category": "CAT-02",
+      "input_text": "சரவணன் தலை பழைய பாக்கிக்கு துட்டு முன்னூறு ரூவா குடுத்துட்டாப்ள, கணக்குல கழிச்சுக்கோ.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.76,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Saravanan",
+        "items": [],
+        "total_rupees": 300.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 300.0
+          }
+        ],
+        "transcript": "சரவணன் தலை பழைய பாக்கிக்கு துட்டு முன்னூறு ரூவா குடுத்துட்டாப்ள, கணக்குல கழிச்சுக்கோ.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-06",
+      "category": "CAT-02",
+      "input_text": "மணி மச்சான் கணக்குல ஒரு கிலோ தக்காளி, கால் கிலோ பச்சை மிளகாய், ஒரு தேங்கா போட்டு எண்பத்தைஞ்சு ரூவா எழுதிக்கோ.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.69,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Mani",
+        "items": [
+          {
+            "name": "Tomato",
+            "quantity": 0.25,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Green Chillies",
+            "quantity": 0.25,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Coconut",
+            "quantity": 0.25,
+            "unit": "piece",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 85.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tomato",
+                "quantity": 0.25,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Green Chillies",
+                "quantity": 0.25,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Coconut",
+                "quantity": 0.25,
+                "unit": "piece",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 85.0
+          }
+        ],
+        "transcript": "மணி மச்சான் கணக்குல ஒரு கிலோ தக்காளி, கால் கிலோ பச்சை மிளகாய், ஒரு தேங்கா போட்டு எண்பத்தைஞ்சு ரூவா எழுதிக்கோ.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-07",
+      "category": "CAT-02",
+      "input_text": "வெங்கி கணக்குல ரெண்டு பாக்கெட் ஆவின் பால், ஒரு பிரெட், நோத்தி இருவது ரூவா பாக்கி.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.62,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Venki",
+        "items": [
+          {
+            "name": "Aavin Milk Packet",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Bread",
+            "quantity": 2.0,
+            "unit": "piece",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 120.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Aavin Milk Packet",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Bread",
+                "quantity": 2.0,
+                "unit": "piece",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 120.0
+          }
+        ],
+        "transcript": "வெங்கி கணக்குல ரெண்டு பாக்கெட் ஆவின் பால், ஒரு பிரெட், நோத்தி இருவது ரூவா பாக்கி.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-08",
+      "category": "CAT-02",
+      "input_text": "மாரிக்கு இன்னைக்கு காசு வந்துடுச்சு, ஐநூறு ரூவா பைசல் பண்ணிட்டான்.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.72,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Maari",
+        "items": [],
+        "total_rupees": 500.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 500.0
+          }
+        ],
+        "transcript": "மாரிக்கு இன்னைக்கு காசு வந்துடுச்சு, ஐநூறு ரூவா பைசல் பண்ணிட்டான்.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-09",
+      "category": "CAT-03",
+      "input_text": "Kumar kanakkula ara kilo paruppu, oru litre paal, motham noothi arubathu roova.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.78,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kumar",
+        "items": [
+          {
+            "name": "Dal",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Milk",
+            "quantity": 0.5,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 160.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Dal",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Milk",
+                "quantity": 0.5,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 160.0
+          }
+        ],
+        "transcript": "Kumar kanakkula ara kilo paruppu, oru litre paal, motham noothi arubathu roova.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-10",
+      "category": "CAT-03",
+      "input_text": "Praveen ku rendu packet sev ampathu rooba, oru tea thool packet iruvathainthu rooba, kadan.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 41.34,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": false,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Praveen",
+        "items": [
+          {
+            "name": "Sev",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Tea Powder",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": null,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Sev",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Tea Powder",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": null
+          }
+        ],
+        "transcript": "Praveen ku rendu packet sev ampathu rooba, oru tea thool packet iruvathainthu rooba, kadan.",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "TC-11",
+      "category": "CAT-03",
+      "input_text": "Karthik pazhaya kadanukku aayiram rooba gpay pantaaru.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.54,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "",
+        "items": [],
+        "total_rupees": 1000.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 1000.0
+          }
+        ],
+        "transcript": "Karthik pazhaya kadanukku aayiram rooba gpay pantaaru.",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "TC-12",
+      "category": "CAT-03",
+      "input_text": "Anitha akka kanakkula kaal kilo poondu, ara kilo vellam, motham nooru rooba.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.63,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": false,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "",
+        "items": [
+          {
+            "name": "Garlic",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Jaggery",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": null,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Garlic",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Jaggery",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": null
+          }
+        ],
+        "transcript": "Anitha akka kanakkula kaal kilo poondu, ara kilo vellam, motham nooru rooba.",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "TC-13",
+      "category": "CAT-03",
+      "input_text": "Auto Ravi ku rendu litru kerosene 110 rooba kadan.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.4,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Auto Ravi",
+        "items": [
+          {
+            "name": "Kerosene",
+            "quantity": 2.0,
+            "unit": "litre",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 110.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Kerosene",
+                "quantity": 2.0,
+                "unit": "litre",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 110.0
+          }
+        ],
+        "transcript": "Auto Ravi ku rendu litru kerosene 110 rooba kadan.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-14",
+      "category": "CAT-04",
+      "input_text": "Suresh account-la 2 packets washing powder, 1 bottle dish wash liquid, total 240 rupees credit.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.74,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Suresh",
+        "items": [
+          {
+            "name": "Washing Powder",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Dish Wash Liquid",
+            "quantity": 2.0,
+            "unit": "bottle",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 240.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Washing Powder",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Dish Wash Liquid",
+                "quantity": 2.0,
+                "unit": "bottle",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 240.0
+          }
+        ],
+        "transcript": "Suresh account-la 2 packets washing powder, 1 bottle dish wash liquid, total 240 rupees credit.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-15",
+      "category": "CAT-04",
+      "input_text": "Deepak brother 500 rupees settlement pannitaaru cash kuduthu.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 43.66,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Deepak",
+        "items": [],
+        "total_rupees": 500.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 500.0
+          }
+        ],
+        "transcript": "Deepak brother 500 rupees settlement pannitaaru cash kuduthu.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-16",
+      "category": "CAT-04",
+      "input_text": "Meena kanakkula 3 kg ponni rice, 500 grams ghee, total amount 310 rupees note panniko.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.6,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Meena",
+        "items": [
+          {
+            "name": "Ponni Rice",
+            "quantity": 3.0,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Ghee",
+            "quantity": 3.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 310.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Ponni Rice",
+                "quantity": 3.0,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Ghee",
+                "quantity": 3.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 310.0
+          }
+        ],
+        "transcript": "Meena kanakkula 3 kg ponni rice, 500 grams ghee, total amount 310 rupees note panniko.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-17",
+      "category": "CAT-04",
+      "input_text": "Vicky ku 1 loaf bread, 2 butter packets, 95 rupees balance entry.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.59,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Vicky",
+        "items": [
+          {
+            "name": "Bread Loaf",
+            "quantity": 2.0,
+            "unit": "piece",
+            "price_rupees": null
+          },
+          {
+            "name": "Butter Packet",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 95.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Bread Loaf",
+                "quantity": 2.0,
+                "unit": "piece",
+                "price_rupees": null
+              },
+              {
+                "name": "Butter Packet",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 95.0
+          }
+        ],
+        "transcript": "Vicky ku 1 loaf bread, 2 butter packets, 95 rupees balance entry.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-18",
+      "category": "CAT-04",
+      "input_text": "Babu payyanukku 4 notebooks, 2 pens, motham 130 rooba credit.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.51,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Babu",
+        "items": [
+          {
+            "name": "Notebook",
+            "quantity": 2.0,
+            "unit": "piece",
+            "price_rupees": null
+          },
+          {
+            "name": "Pen",
+            "quantity": 2.0,
+            "unit": "piece",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 130.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Notebook",
+                "quantity": 2.0,
+                "unit": "piece",
+                "price_rupees": null
+              },
+              {
+                "name": "Pen",
+                "quantity": 2.0,
+                "unit": "piece",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 130.0
+          }
+        ],
+        "transcript": "Babu payyanukku 4 notebooks, 2 pens, motham 130 rooba credit.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-19",
+      "category": "CAT-05",
+      "input_text": "பாலாஜி கணக்குல அரை கிலோ பாசிப்பருப்பு, கால் கிலோ சீரகம், நூறு கிராம் பெருங்காயம், மொத்தம் நூற்றெண்பது ரூபாய் கடன்.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.56,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Balaji",
+        "items": [
+          {
+            "name": "Moong Dal",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Cumin Seeds",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Asafoetida",
+            "quantity": 0.5,
+            "unit": "g",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 180.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Moong Dal",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Cumin Seeds",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Asafoetida",
+                "quantity": 0.5,
+                "unit": "g",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 180.0
+          }
+        ],
+        "transcript": "பாலாஜி கணக்குல அரை கிலோ பாசிப்பருப்பு, கால் கிலோ சீரகம், நூறு கிராம் பெருங்காயம், மொத்தம் நூற்றெண்பது ரூபாய் கடன்.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-20",
+      "category": "CAT-05",
+      "input_text": "Ganesh ku mukkāl kilo kadalai ennai, kaal kilo kadugu, motham 195 rooba.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.87,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Ganesh",
+        "items": [
+          {
+            "name": "Groundnut Oil",
+            "quantity": 0.25,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Mustard Seeds",
+            "quantity": 0.25,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 195.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Groundnut Oil",
+                "quantity": 0.25,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Mustard Seeds",
+                "quantity": 0.25,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 195.0
+          }
+        ],
+        "transcript": "Ganesh ku mukkāl kilo kadalai ennai, kaal kilo kadugu, motham 195 rooba.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-21",
+      "category": "CAT-05",
+      "input_text": "கவிதா அக்காவுக்கு அரை கிலோ புளி, கால் கிலோ குண்டு மிளகாய், மொத்தம் 160 ரூபாய் கடனில் எழுது.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.64,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Kavitha",
+        "items": [
+          {
+            "name": "Tamarind",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Round Red Chillies",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 160.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tamarind",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Round Red Chillies",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 160.0
+          }
+        ],
+        "transcript": "கவிதா அக்காவுக்கு அரை கிலோ புளி, கால் கிலோ குண்டு மிளகாய், மொத்தம் 160 ரூபாய் கடனில் எழுது.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-22",
+      "category": "CAT-05",
+      "input_text": "Shankar kanakkula 3 thuni sabon, 1 thenga ennai bottle, total 115 rooba.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.56,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Shankar",
+        "items": [
+          {
+            "name": "Laundry Soap",
+            "quantity": 3.0,
+            "unit": "piece",
+            "price_rupees": null
+          },
+          {
+            "name": "Coconut Oil Bottle",
+            "quantity": 3.0,
+            "unit": "bottle",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 115.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Laundry Soap",
+                "quantity": 3.0,
+                "unit": "piece",
+                "price_rupees": null
+              },
+              {
+                "name": "Coconut Oil Bottle",
+                "quantity": 3.0,
+                "unit": "bottle",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 115.0
+          }
+        ],
+        "transcript": "Shankar kanakkula 3 thuni sabon, 1 thenga ennai bottle, total 115 rooba.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-23",
+      "category": "CAT-06",
+      "input_text": "ராஜன் கணக்குல 5 கிலோ அரிசி, 1 கிலோ சர்க்கரை, அரை லிட்டர் நல்லெண்ணெய், 1 பாக்கெட் உப்பு, மொத்தம் 450 ரூபாய் வரவு வை.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.47,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Rajan",
+        "items": [
+          {
+            "name": "Sugar",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Rice",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Sesame Oil",
+            "quantity": 0.5,
+            "unit": "litre",
+            "price_rupees": null
+          },
+          {
+            "name": "Salt Packet",
+            "quantity": 0.5,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 450.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Sugar",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Rice",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Sesame Oil",
+                "quantity": 0.5,
+                "unit": "litre",
+                "price_rupees": null
+              },
+              {
+                "name": "Salt Packet",
+                "quantity": 0.5,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 450.0
+          }
+        ],
+        "transcript": "ராஜன் கணக்குல 5 கிலோ அரிசி, 1 கிலோ சர்க்கரை, அரை லிட்டர் நல்லெண்ணெய், 1 பாக்கெட் உப்பு, மொத்தம் 450 ரூபாய் வரவு வை.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-24",
+      "category": "CAT-06",
+      "input_text": "Murali ku 1 packet idli maavu 35 rooba, 2 packet paal 50 rooba, ara kilo rava 40 rooba, motham 125 rooba kadan.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.6,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Murali",
+        "items": [
+          {
+            "name": "Rava",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Milk",
+            "quantity": 0.5,
+            "unit": "packet",
+            "price_rupees": null
+          },
+          {
+            "name": "Idli Batter Packet",
+            "quantity": 0.5,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 125.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Rava",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Milk",
+                "quantity": 0.5,
+                "unit": "packet",
+                "price_rupees": null
+              },
+              {
+                "name": "Idli Batter Packet",
+                "quantity": 0.5,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 125.0
+          }
+        ],
+        "transcript": "Murali ku 1 packet idli maavu 35 rooba, 2 packet paal 50 rooba, ara kilo rava 40 rooba, motham 125 rooba kadan.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-25",
+      "category": "CAT-06",
+      "input_text": "Sundar sir account-la 1 broom stick, 2 phenyl bottles, 1 mosquito coil packet, total 230 rupees.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.47,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Sundar",
+        "items": [
+          {
+            "name": "Broom Stick",
+            "quantity": 2.0,
+            "unit": "piece",
+            "price_rupees": null
+          },
+          {
+            "name": "Phenyl Bottle",
+            "quantity": 2.0,
+            "unit": "bottle",
+            "price_rupees": null
+          },
+          {
+            "name": "Mosquito Coil Packet",
+            "quantity": 2.0,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 230.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Broom Stick",
+                "quantity": 2.0,
+                "unit": "piece",
+                "price_rupees": null
+              },
+              {
+                "name": "Phenyl Bottle",
+                "quantity": 2.0,
+                "unit": "bottle",
+                "price_rupees": null
+              },
+              {
+                "name": "Mosquito Coil Packet",
+                "quantity": 2.0,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 230.0
+          }
+        ],
+        "transcript": "Sundar sir account-la 1 broom stick, 2 phenyl bottles, 1 mosquito coil packet, total 230 rupees.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-26",
+      "category": "CAT-06",
+      "input_text": "Sangeetha ku oru kilo maida, ara kilo kadalai paruppu, 2 muttai, motham 110 roova kadan.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.35,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Sangeetha",
+        "items": [
+          {
+            "name": "Dal",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Maida",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Chana Dal",
+            "quantity": 0.5,
+            "unit": "kg",
+            "price_rupees": null
+          },
+          {
+            "name": "Eggs",
+            "quantity": 0.5,
+            "unit": "piece",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 110.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Dal",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Maida",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Chana Dal",
+                "quantity": 0.5,
+                "unit": "kg",
+                "price_rupees": null
+              },
+              {
+                "name": "Eggs",
+                "quantity": 0.5,
+                "unit": "piece",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 110.0
+          }
+        ],
+        "transcript": "Sangeetha ku oru kilo maida, ara kilo kadalai paruppu, 2 muttai, motham 110 roova kadan.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-27",
+      "category": "CAT-07",
+      "input_text": "தங்கவேல் பழைய பாக்கி எண்ணூறு ரூபாய்க்கு எழுநூறு ரூபாய் தந்துவிட்டார், நூறு ரூபாய் இன்னும் பாக்கி.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.5,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Thangavel",
+        "items": [],
+        "total_rupees": 700.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 700.0
+          }
+        ],
+        "transcript": "தங்கவேல் பழைய பாக்கி எண்ணூறு ரூபாய்க்கு எழுநூறு ரூபாய் தந்துவிட்டார், நூறு ரூபாய் இன்னும் பாக்கி.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-28",
+      "category": "CAT-07",
+      "input_text": "Ramesh munnadi baaki 450 rooba muzhusaa settlement pannitaaru.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.51,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "",
+        "items": [],
+        "total_rupees": 450.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 450.0
+          }
+        ],
+        "transcript": "Ramesh munnadi baaki 450 rooba muzhusaa settlement pannitaaru.",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "TC-29",
+      "category": "CAT-07",
+      "input_text": "சங்கர் போன்பே மூலமா பாக்கிக்கு இருநூறு ரூவா அனுப்பிட்டாரு.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.72,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "payment",
+        "customer_name": "Shankar",
+        "items": [],
+        "total_rupees": 200.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 200.0
+          }
+        ],
+        "transcript": "சங்கர் போன்பே மூலமா பாக்கிக்கு இருநூறு ரூவா அனுப்பிட்டாரு.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-30",
+      "category": "CAT-08",
+      "input_text": "Kumar munnaadi 500 baaki irukku, 200 kuduthaaru, inniku 70 ku saaman eduthaaru.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.76,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": false,
+      "hallucinated": false,
+      "draft": {
+        "kind": "combined",
+        "customer_name": "Kumar",
+        "items": [
+          {
+            "name": "Grocery items",
+            "quantity": 2.0,
+            "unit": null,
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": null,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 200.0
+          },
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Grocery items",
+                "quantity": 2.0,
+                "unit": null,
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": null
+          }
+        ],
+        "transcript": "Kumar munnaadi 500 baaki irukku, 200 kuduthaaru, inniku 70 ku saaman eduthaaru.",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "TC-31",
+      "category": "CAT-08",
+      "input_text": "செல்வராஜ் பழைய பாக்கிக்கு நானூறு ரூபாய் தந்துட்டு, புதுசா ரெண்டு லிட்டர் பாமாயில் நூற்றி இருபது ரூபாய்க்கு கடனில் எடுத்தார்.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.36,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "combined",
+        "customer_name": "Selvaraj",
+        "items": [
+          {
+            "name": "Palm Oil",
+            "quantity": 2.0,
+            "unit": "litre",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 120.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 300.0
+          },
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Palm Oil",
+                "quantity": 2.0,
+                "unit": "litre",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 120.0
+          }
+        ],
+        "transcript": "செல்வராஜ் பழைய பாக்கிக்கு நானூறு ரூபாய் தந்துட்டு, புதுசா ரெண்டு லிட்டர் பாமாயில் நூற்றி இருபது ரூபாய்க்கு கடனில் எடுத்தார்.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-32",
+      "category": "CAT-08",
+      "input_text": "Vasanth old balance 300 rupees clear pannitu, today 50 rupees-ku snacks credit eduthutaapla.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.88,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "combined",
+        "customer_name": "Vasanth",
+        "items": [
+          {
+            "name": "Snacks",
+            "quantity": 3.0,
+            "unit": null,
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 50.0,
+        "operations": [
+          {
+            "type": "payment",
+            "items": [],
+            "total_rupees": 300.0
+          },
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Snacks",
+                "quantity": 3.0,
+                "unit": null,
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 50.0
+          }
+        ],
+        "transcript": "Vasanth old balance 300 rupees clear pannitu, today 50 rupees-ku snacks credit eduthutaapla.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-33",
+      "category": "CAT-09",
+      "input_text": "விஜய் கணக்குல ஒரு கிலோ நெய் இருநூறு ரூபாய்... இல்ல இல்ல இருநூற்றி ஐம்பது ரூபாய் போடு.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.64,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Vijay",
+        "items": [
+          {
+            "name": "Ghee",
+            "quantity": 1.0,
+            "unit": "kg",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 250.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Ghee",
+                "quantity": 1.0,
+                "unit": "kg",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 250.0
+          }
+        ],
+        "transcript": "விஜய் கணக்குல ஒரு கிலோ நெய் இருநூறு ரூபாய்... இல்ல இல்ல இருநூற்றி ஐம்பது ரூபாய் போடு.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-34",
+      "category": "CAT-09",
+      "input_text": "Ramesh kanakkula ara kilo tea thool... sorry Ramesh illa Suresh kanakkula 120 rooba.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 40.93,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Suresh",
+        "items": [
+          {
+            "name": "Tea Powder",
+            "quantity": 0.5,
+            "unit": "packet",
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": 120.0,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Tea Powder",
+                "quantity": 0.5,
+                "unit": "packet",
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": 120.0
+          }
+        ],
+        "transcript": "Ramesh kanakkula ara kilo tea thool... sorry Ramesh illa Suresh kanakkula 120 rooba.",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "TC-35",
+      "category": "CAT-09",
+      "input_text": "அமுதா அக்கா கொஞ்சம் பருப்பும் உப்பும் எடுத்துட்டு போயிருக்காங்க, காசு அப்புறம் தரேன்னு சொன்னாங்க.",
+      "success": true,
+      "is_mock": true,
+      "latency_ms": 43.4,
+      "customer_match": true,
+      "intent_match": true,
+      "amount_match": true,
+      "hallucinated": false,
+      "draft": {
+        "kind": "credit",
+        "customer_name": "Amudha",
+        "items": [
+          {
+            "name": "Salt Packet",
+            "quantity": null,
+            "unit": null,
+            "price_rupees": null
+          },
+          {
+            "name": "Dal",
+            "quantity": null,
+            "unit": null,
+            "price_rupees": null
+          },
+          {
+            "name": "Salt",
+            "quantity": null,
+            "unit": null,
+            "price_rupees": null
+          }
+        ],
+        "total_rupees": null,
+        "operations": [
+          {
+            "type": "credit",
+            "items": [
+              {
+                "name": "Salt Packet",
+                "quantity": null,
+                "unit": null,
+                "price_rupees": null
+              },
+              {
+                "name": "Dal",
+                "quantity": null,
+                "unit": null,
+                "price_rupees": null
+              },
+              {
+                "name": "Salt",
+                "quantity": null,
+                "unit": null,
+                "price_rupees": null
+              }
+            ],
+            "total_rupees": null
+          }
+        ],
+        "transcript": "அமுதா அக்கா கொஞ்சம் பருப்பும் உப்பும் எடுத்துட்டு போயிருக்காங்க, காசு அப்புறம் தரேன்னு சொன்னாங்க.",
+        "confidence": "medium"
+      }
+    }
+  ]
+}

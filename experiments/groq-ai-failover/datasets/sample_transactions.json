@@ -1,0 +1,528 @@
+{
+  "description": "CredYazh Phase 1 Synthetic Tamil/Tanglish/English Kirana Store Evaluation Dataset",
+  "version": "1.0.0",
+  "created_at": "2026-10-27",
+  "dataset_type": "synthetic_benchmarking",
+  "disclaimer": "All merchant and customer names, item lists, and financial values are synthetic for testing purposes only.",
+  "cases": [
+    {
+      "id": "TC-01",
+      "category": "CAT-01",
+      "description": "Standard Spoken Tamil - Single credit purchase with total",
+      "input_text": "முருகன் கணக்கில் ரெண்டு கிலோ சர்க்கரை, மொத்தம் தொண்ணூறு ரூபாய் வரவு வை.",
+      "expected": {
+        "customer_name": "Murugan",
+        "transaction_type": "credit",
+        "total_amount_rupees": 90.0,
+        "items": [
+          {"name": "Sugar", "quantity": 2.0, "unit": "kg", "price_rupees": 90.0}
+        ]
+      }
+    },
+    {
+      "id": "TC-02",
+      "category": "CAT-01",
+      "description": "Standard Spoken Tamil - Multiple items with implicit unit price",
+      "input_text": "செல்வம் அண்ணனுக்கு ஒரு லிட்டர் ஆயில், அரை கிலோ உளுந்து, மொத்தம் நூற்றி எண்பது ரூபாய் கடனில் போடு.",
+      "expected": {
+        "customer_name": "Selvam",
+        "transaction_type": "credit",
+        "total_amount_rupees": 180.0,
+        "items": [
+          {"name": "Cooking Oil", "quantity": 1.0, "unit": "litre", "price_rupees": null},
+          {"name": "Urad Dal", "quantity": 0.5, "unit": "kg", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-03",
+      "category": "CAT-01",
+      "description": "Standard Spoken Tamil - Pure repayment entry",
+      "input_text": "கண்ணன் பழைய பாக்கிக்கு ஐந்நூறு ரூபாய் கொடுத்தார்.",
+      "expected": {
+        "customer_name": "Kannan",
+        "transaction_type": "payment",
+        "total_amount_rupees": 500.0,
+        "amount_received_rupees": 500.0,
+        "items": []
+      }
+    },
+    {
+      "id": "TC-04",
+      "category": "CAT-01",
+      "description": "Standard Spoken Tamil - Three provisions without explicit item prices",
+      "input_text": "ராதா அக்காவுக்கு அஞ்சு பாக்கெட் பிஸ்கட், ஒரு கிலோ கோதுமை மாவு, நூறு கிராம் மிளகுத்தூள், மொத்தம் நூற்றி நாற்பது ரூபாய்.",
+      "expected": {
+        "customer_name": "Radha",
+        "transaction_type": "credit",
+        "total_amount_rupees": 140.0,
+        "items": [
+          {"name": "Biscuits", "quantity": 5.0, "unit": "packet", "price_rupees": null},
+          {"name": "Wheat Flour", "quantity": 1.0, "unit": "kg", "price_rupees": null},
+          {"name": "Pepper Powder", "quantity": 100.0, "unit": "g", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-05",
+      "category": "CAT-02",
+      "description": "Chennai Colloquial Tamil - Slang for cash payment and balance clearance",
+      "input_text": "சரவணன் தலை பழைய பாக்கிக்கு துட்டு முன்னூறு ரூவா குடுத்துட்டாப்ள, கணக்குல கழிச்சுக்கோ.",
+      "expected": {
+        "customer_name": "Saravanan",
+        "transaction_type": "payment",
+        "total_amount_rupees": 300.0,
+        "amount_received_rupees": 300.0,
+        "items": []
+      }
+    },
+    {
+      "id": "TC-06",
+      "category": "CAT-02",
+      "description": "Chennai Colloquial Tamil - Slang provisions purchase",
+      "input_text": "மணி மச்சான் கணக்குல ஒரு கிலோ தக்காளி, கால் கிலோ பச்சை மிளகாய், ஒரு தேங்கா போட்டு எண்பத்தைஞ்சு ரூவா எழுதிக்கோ.",
+      "expected": {
+        "customer_name": "Mani",
+        "transaction_type": "credit",
+        "total_amount_rupees": 85.0,
+        "items": [
+          {"name": "Tomato", "quantity": 1.0, "unit": "kg", "price_rupees": null},
+          {"name": "Green Chillies", "quantity": 0.25, "unit": "kg", "price_rupees": null},
+          {"name": "Coconut", "quantity": 1.0, "unit": "piece", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-07",
+      "category": "CAT-02",
+      "description": "Chennai Colloquial Tamil - Contraction numbers noothi arubathu",
+      "input_text": "வெங்கி கணக்குல ரெண்டு பாக்கெட் ஆவின் பால், ஒரு பிரெட், நோத்தி இருவது ரூவா பாக்கி.",
+      "expected": {
+        "customer_name": "Venki",
+        "transaction_type": "credit",
+        "total_amount_rupees": 120.0,
+        "items": [
+          {"name": "Aavin Milk Packet", "quantity": 2.0, "unit": "packet", "price_rupees": null},
+          {"name": "Bread", "quantity": 1.0, "unit": "piece", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-08",
+      "category": "CAT-02",
+      "description": "Chennai Colloquial Tamil - Colloquial settlement with zero item purchase",
+      "input_text": "மாரிக்கு இன்னைக்கு காசு வந்துடுச்சு, ஐநூறு ரூவா பைசல் பண்ணிட்டான்.",
+      "expected": {
+        "customer_name": "Maari",
+        "transaction_type": "payment",
+        "total_amount_rupees": 500.0,
+        "amount_received_rupees": 500.0,
+        "items": []
+      }
+    },
+    {
+      "id": "TC-09",
+      "category": "CAT-03",
+      "description": "Tanglish - Standard provision entry in Latin script",
+      "input_text": "Kumar kanakkula ara kilo paruppu, oru litre paal, motham noothi arubathu roova.",
+      "expected": {
+        "customer_name": "Kumar",
+        "transaction_type": "credit",
+        "total_amount_rupees": 160.0,
+        "items": [
+          {"name": "Toor Dal", "quantity": 0.5, "unit": "kg", "price_rupees": null},
+          {"name": "Milk", "quantity": 1.0, "unit": "litre", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-10",
+      "category": "CAT-03",
+      "description": "Tanglish - Snack purchase with explicit item price",
+      "input_text": "Praveen ku rendu packet sev ampathu rooba, oru tea thool packet iruvathainthu rooba, kadan.",
+      "expected": {
+        "customer_name": "Praveen",
+        "transaction_type": "credit",
+        "total_amount_rupees": 75.0,
+        "items": [
+          {"name": "Sev", "quantity": 2.0, "unit": "packet", "price_rupees": 50.0},
+          {"name": "Tea Powder Packet", "quantity": 1.0, "unit": "packet", "price_rupees": 25.0}
+        ]
+      }
+    },
+    {
+      "id": "TC-11",
+      "category": "CAT-03",
+      "description": "Tanglish - Settlement payment entry",
+      "input_text": "Karthik pazhaya kadanukku aayiram rooba gpay pantaaru.",
+      "expected": {
+        "customer_name": "Karthik",
+        "transaction_type": "payment",
+        "total_amount_rupees": 1000.0,
+        "amount_received_rupees": 1000.0,
+        "items": []
+      }
+    },
+    {
+      "id": "TC-12",
+      "category": "CAT-03",
+      "description": "Tanglish - Provisions with fractional weights",
+      "input_text": "Anitha akka kanakkula kaal kilo poondu, ara kilo vellam, motham nooru rooba.",
+      "expected": {
+        "customer_name": "Anitha",
+        "transaction_type": "credit",
+        "total_amount_rupees": 100.0,
+        "items": [
+          {"name": "Garlic", "quantity": 0.25, "unit": "kg", "price_rupees": null},
+          {"name": "Jaggery", "quantity": 0.5, "unit": "kg", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-13",
+      "category": "CAT-03",
+      "description": "Tanglish - Customer nickname with single commodity credit",
+      "input_text": "Auto Ravi ku rendu litru kerosene 110 rooba kadan.",
+      "expected": {
+        "customer_name": "Auto Ravi",
+        "transaction_type": "credit",
+        "total_amount_rupees": 110.0,
+        "items": [
+          {"name": "Kerosene", "quantity": 2.0, "unit": "litre", "price_rupees": 110.0}
+        ]
+      }
+    },
+    {
+      "id": "TC-14",
+      "category": "CAT-04",
+      "description": "Tamil-English Code Switching - English grocery terms inside Tamil grammar",
+      "input_text": "Suresh account-la 2 packets washing powder, 1 bottle dish wash liquid, total 240 rupees credit.",
+      "expected": {
+        "customer_name": "Suresh",
+        "transaction_type": "credit",
+        "total_amount_rupees": 240.0,
+        "items": [
+          {"name": "Washing Powder", "quantity": 2.0, "unit": "packet", "price_rupees": null},
+          {"name": "Dish Wash Liquid", "quantity": 1.0, "unit": "bottle", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-15",
+      "category": "CAT-04",
+      "description": "Tamil-English Code Switching - Mixed numbers and Tamil verbs",
+      "input_text": "Deepak brother 500 rupees settlement pannitaaru cash kuduthu.",
+      "expected": {
+        "customer_name": "Deepak",
+        "transaction_type": "payment",
+        "total_amount_rupees": 500.0,
+        "amount_received_rupees": 500.0,
+        "items": []
+      }
+    },
+    {
+      "id": "TC-16",
+      "category": "CAT-04",
+      "description": "Tamil-English Code Switching - Daily items with English units",
+      "input_text": "Meena kanakkula 3 kg ponni rice, 500 grams ghee, total amount 310 rupees note panniko.",
+      "expected": {
+        "customer_name": "Meena",
+        "transaction_type": "credit",
+        "total_amount_rupees": 310.0,
+        "items": [
+          {"name": "Ponni Rice", "quantity": 3.0, "unit": "kg", "price_rupees": null},
+          {"name": "Ghee", "quantity": 0.5, "unit": "kg", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-17",
+      "category": "CAT-04",
+      "description": "Tamil-English Code Switching - Dairy and bakery items",
+      "input_text": "Vicky ku 1 loaf bread, 2 butter packets, 95 rupees balance entry.",
+      "expected": {
+        "customer_name": "Vicky",
+        "transaction_type": "credit",
+        "total_amount_rupees": 95.0,
+        "items": [
+          {"name": "Bread Loaf", "quantity": 1.0, "unit": "piece", "price_rupees": null},
+          {"name": "Butter Packet", "quantity": 2.0, "unit": "packet", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-18",
+      "category": "CAT-04",
+      "description": "Tamil-English Code Switching - Stationery & confectionery purchase",
+      "input_text": "Babu payyanukku 4 notebooks, 2 pens, motham 130 rooba credit.",
+      "expected": {
+        "customer_name": "Babu",
+        "transaction_type": "credit",
+        "total_amount_rupees": 130.0,
+        "items": [
+          {"name": "Notebook", "quantity": 4.0, "unit": "piece", "price_rupees": null},
+          {"name": "Pen", "quantity": 2.0, "unit": "piece", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-19",
+      "category": "CAT-05",
+      "description": "Local Grocery Terminology - Traditional Tamil dry grocery items",
+      "input_text": "பாலாஜி கணக்குல அரை கிலோ பாசிப்பருப்பு, கால் கிலோ சீரகம், நூறு கிராம் பெருங்காயம், மொத்தம் நூற்றெண்பது ரூபாய் கடன்.",
+      "expected": {
+        "customer_name": "Balaji",
+        "transaction_type": "credit",
+        "total_amount_rupees": 180.0,
+        "items": [
+          {"name": "Moong Dal", "quantity": 0.5, "unit": "kg", "price_rupees": null},
+          {"name": "Cumin Seeds", "quantity": 0.25, "unit": "kg", "price_rupees": null},
+          {"name": "Asafoetida", "quantity": 100.0, "unit": "g", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-20",
+      "category": "CAT-05",
+      "description": "Local Grocery Terminology - Spices and oils in Tanglish",
+      "input_text": "Ganesh ku mukkāl kilo kadalai ennai, kaal kilo kadugu, motham 195 rooba.",
+      "expected": {
+        "customer_name": "Ganesh",
+        "transaction_type": "credit",
+        "total_amount_rupees": 195.0,
+        "items": [
+          {"name": "Groundnut Oil", "quantity": 0.75, "unit": "kg", "price_rupees": null},
+          {"name": "Mustard Seeds", "quantity": 0.25, "unit": "kg", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-21",
+      "category": "CAT-05",
+      "description": "Local Grocery Terminology - Tamarind and dried chillies",
+      "input_text": "கவிதா அக்காவுக்கு அரை கிலோ புளி, கால் கிலோ குண்டு மிளகாய், மொத்தம் 160 ரூபாய் கடனில் எழுது.",
+      "expected": {
+        "customer_name": "Kavitha",
+        "transaction_type": "credit",
+        "total_amount_rupees": 160.0,
+        "items": [
+          {"name": "Tamarind", "quantity": 0.5, "unit": "kg", "price_rupees": null},
+          {"name": "Round Red Chillies", "quantity": 0.25, "unit": "kg", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-22",
+      "category": "CAT-05",
+      "description": "Local Grocery Terminology - Soap and detergents in Tanglish",
+      "input_text": "Shankar kanakkula 3 thuni sabon, 1 thenga ennai bottle, total 115 rooba.",
+      "expected": {
+        "customer_name": "Shankar",
+        "transaction_type": "credit",
+        "total_amount_rupees": 115.0,
+        "items": [
+          {"name": "Laundry Soap", "quantity": 3.0, "unit": "piece", "price_rupees": null},
+          {"name": "Coconut Oil Bottle", "quantity": 1.0, "unit": "bottle", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-23",
+      "category": "CAT-06",
+      "description": "Multi-Item Transactions - 4 distinct grocery items in one breath",
+      "input_text": "ராஜன் கணக்குல 5 கிலோ அரிசி, 1 கிலோ சர்க்கரை, அரை லிட்டர் நல்லெண்ணெய், 1 பாக்கெட் உப்பு, மொத்தம் 450 ரூபாய் வரவு வை.",
+      "expected": {
+        "customer_name": "Rajan",
+        "transaction_type": "credit",
+        "total_amount_rupees": 450.0,
+        "items": [
+          {"name": "Rice", "quantity": 5.0, "unit": "kg", "price_rupees": null},
+          {"name": "Sugar", "quantity": 1.0, "unit": "kg", "price_rupees": null},
+          {"name": "Sesame Oil", "quantity": 0.5, "unit": "litre", "price_rupees": null},
+          {"name": "Salt Packet", "quantity": 1.0, "unit": "packet", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-24",
+      "category": "CAT-06",
+      "description": "Multi-Item Transactions - Tanglish multi-item breakfast grocery",
+      "input_text": "Murali ku 1 packet idli maavu 35 rooba, 2 packet paal 50 rooba, ara kilo rava 40 rooba, motham 125 rooba kadan.",
+      "expected": {
+        "customer_name": "Murali",
+        "transaction_type": "credit",
+        "total_amount_rupees": 125.0,
+        "items": [
+          {"name": "Idli Batter Packet", "quantity": 1.0, "unit": "packet", "price_rupees": 35.0},
+          {"name": "Milk Packet", "quantity": 2.0, "unit": "packet", "price_rupees": 50.0},
+          {"name": "Rava", "quantity": 0.5, "unit": "kg", "price_rupees": 40.0}
+        ]
+      }
+    },
+    {
+      "id": "TC-25",
+      "category": "CAT-06",
+      "description": "Multi-Item Transactions - Cleaning supplies bundle in English-Tamil",
+      "input_text": "Sundar sir account-la 1 broom stick, 2 phenyl bottles, 1 mosquito coil packet, total 230 rupees.",
+      "expected": {
+        "customer_name": "Sundar",
+        "transaction_type": "credit",
+        "total_amount_rupees": 230.0,
+        "items": [
+          {"name": "Broom Stick", "quantity": 1.0, "unit": "piece", "price_rupees": null},
+          {"name": "Phenyl Bottle", "quantity": 2.0, "unit": "bottle", "price_rupees": null},
+          {"name": "Mosquito Coil Packet", "quantity": 1.0, "unit": "packet", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-26",
+      "category": "CAT-06",
+      "description": "Multi-Item Transactions - Tanglish provisions without individual prices",
+      "input_text": "Sangeetha ku oru kilo maida, ara kilo kadalai paruppu, 2 muttai, motham 110 roova kadan.",
+      "expected": {
+        "customer_name": "Sangeetha",
+        "transaction_type": "credit",
+        "total_amount_rupees": 110.0,
+        "items": [
+          {"name": "Maida", "quantity": 1.0, "unit": "kg", "price_rupees": null},
+          {"name": "Chana Dal", "quantity": 0.5, "unit": "kg", "price_rupees": null},
+          {"name": "Eggs", "quantity": 2.0, "unit": "piece", "price_rupees": null}
+        ]
+      }
+    },
+    {
+      "id": "TC-27",
+      "category": "CAT-07",
+      "description": "Repayments & Credit Clearances - Explicit previous balance settlement",
+      "input_text": "தங்கவேல் பழைய பாக்கி எண்ணூறு ரூபாய்க்கு எழுநூறு ரூபாய் தந்துவிட்டார், நூறு ரூபாய் இன்னும் பாக்கி.",
+      "expected": {
+        "customer_name": "Thangavel",
+        "transaction_type": "payment",
+        "total_amount_rupees": 700.0,
+        "amount_received_rupees": 700.0,
+        "previous_balance_rupees": 800.0,
+        "items": []
+      }
+    },
+    {
+      "id": "TC-28",
+      "category": "CAT-07",
+      "description": "Repayments & Credit Clearances - Tanglish full payment clearance",
+      "input_text": "Ramesh munnadi baaki 450 rooba muzhusaa settlement pannitaaru.",
+      "expected": {
+        "customer_name": "Ramesh",
+        "transaction_type": "payment",
+        "total_amount_rupees": 450.0,
+        "amount_received_rupees": 450.0,
+        "previous_balance_rupees": 450.0,
+        "items": []
+      }
+    },
+    {
+      "id": "TC-29",
+      "category": "CAT-07",
+      "description": "Repayments & Credit Clearances - Partial repayment via digital mode",
+      "input_text": "சங்கர் போன்பே மூலமா பாக்கிக்கு இருநூறு ரூவா அனுப்பிட்டாரு.",
+      "expected": {
+        "customer_name": "Shankar",
+        "transaction_type": "payment",
+        "total_amount_rupees": 200.0,
+        "amount_received_rupees": 200.0,
+        "items": []
+      }
+    },
+    {
+      "id": "TC-30",
+      "category": "CAT-08",
+      "description": "Combined Transactions - Tanglish master prompt test case 2",
+      "input_text": "Kumar munnaadi 500 baaki irukku, 200 kuduthaaru, inniku 70 ku saaman eduthaaru.",
+      "expected": {
+        "customer_name": "Kumar",
+        "transaction_type": "combined",
+        "previous_balance_rupees": 500.0,
+        "amount_received_rupees": 200.0,
+        "new_credit_rupees": 70.0,
+        "total_amount_rupees": 70.0,
+        "items": [
+          {"name": "Grocery items", "quantity": null, "unit": null, "price_rupees": 70.0}
+        ]
+      }
+    },
+    {
+      "id": "TC-31",
+      "category": "CAT-08",
+      "description": "Combined Transactions - Tamil balance repayment plus oil purchase",
+      "input_text": "செல்வராஜ் பழைய பாக்கிக்கு நானூறு ரூபாய் தந்துட்டு, புதுசா ரெண்டு லிட்டர் பாமாயில் நூற்றி இருபது ரூபாய்க்கு கடனில் எடுத்தார்.",
+      "expected": {
+        "customer_name": "Selvaraj",
+        "transaction_type": "combined",
+        "amount_received_rupees": 400.0,
+        "new_credit_rupees": 120.0,
+        "total_amount_rupees": 120.0,
+        "items": [
+          {"name": "Palm Oil", "quantity": 2.0, "unit": "litre", "price_rupees": 120.0}
+        ]
+      }
+    },
+    {
+      "id": "TC-32",
+      "category": "CAT-08",
+      "description": "Combined Transactions - Code-switching settlement plus snacks",
+      "input_text": "Vasanth old balance 300 rupees clear pannitu, today 50 rupees-ku snacks credit eduthutaapla.",
+      "expected": {
+        "customer_name": "Vasanth",
+        "transaction_type": "combined",
+        "amount_received_rupees": 300.0,
+        "new_credit_rupees": 50.0,
+        "total_amount_rupees": 50.0,
+        "items": [
+          {"name": "Snacks", "quantity": null, "unit": null, "price_rupees": 50.0}
+        ]
+      }
+    },
+    {
+      "id": "TC-33",
+      "category": "CAT-09",
+      "description": "Corrections & Ambiguities - Mid-utterance amount correction",
+      "input_text": "விஜய் கணக்குல ஒரு கிலோ நெய் இருநூறு ரூபாய்... இல்ல இல்ல இருநூற்றி ஐம்பது ரூபாய் போடு.",
+      "expected": {
+        "customer_name": "Vijay",
+        "transaction_type": "credit",
+        "total_amount_rupees": 250.0,
+        "items": [
+          {"name": "Ghee", "quantity": 1.0, "unit": "kg", "price_rupees": 250.0}
+        ]
+      }
+    },
+    {
+      "id": "TC-34",
+      "category": "CAT-09",
+      "description": "Corrections & Ambiguities - Tanglish name correction",
+      "input_text": "Ramesh kanakkula ara kilo tea thool... sorry Ramesh illa Suresh kanakkula 120 rooba.",
+      "expected": {
+        "customer_name": "Suresh",
+        "transaction_type": "credit",
+        "total_amount_rupees": 120.0,
+        "items": [
+          {"name": "Tea Powder", "quantity": 0.5, "unit": "kg", "price_rupees": 120.0}
+        ]
+      }
+    },
+    {
+      "id": "TC-35",
+      "category": "CAT-09",
+      "description": "Corrections & Ambiguities - Missing item quantities and ambiguous price",
+      "input_text": "அமுதா அக்கா கொஞ்சம் பருப்பும் உப்பும் எடுத்துட்டு போயிருக்காங்க, காசு அப்புறம் தரேன்னு சொன்னாங்க.",
+      "expected": {
+        "customer_name": "Amudha",
+        "transaction_type": "credit",
+        "total_amount_rupees": null,
+        "items": [
+          {"name": "Dal", "quantity": null, "unit": null, "price_rupees": null},
+          {"name": "Salt", "quantity": null, "unit": null, "price_rupees": null}
+        ]
+      }
+    }
+  ]
+}
