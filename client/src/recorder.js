@@ -5,7 +5,7 @@ export async function startRecording(onVolume) {
       throw new Error(
         'Microphone access is blocked because the site is not running on a secure origin (HTTPS or localhost). ' +
         'Browsers disable microphone APIs on network HTTP URLs (like http://192.168.x.x). ' +
-        'Please access via http://localhost:5173, enable HTTPS in Vite, or whitelist the IP in chrome://flags.'
+        'Please access via http://localhost:5173.'
       );
     }
     throw new Error('Microphone recording is not supported in this browser.');

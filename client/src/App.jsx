@@ -4,6 +4,7 @@ import LiveVoiceModal from './LiveVoiceModal.jsx';
 import KalaiAssistantModal from './KalaiAssistantModal.jsx';
 import ArchivedCustomersModal from './ArchivedCustomersModal.jsx';
 import { recordLatency, getLatencyStats } from './telemetry.js';
+import YazhTour from './yazh-tour/index.jsx';
 
 export default function App() {
   const [customers, setCustomers] = useState([]);
@@ -11,6 +12,13 @@ export default function App() {
   const [error, setError] = useState('');
   const [view, setView] = useState('home'); // 'home' | 'customers' | 'entry'
   const [showKalaiModal, setShowKalaiModal] = useState(false);
+  const [voiceRecordingState, setVoiceRecordingState] = useState({
+    isOpen: false,
+    isRecording: false,
+    canFinish: false,
+    isProcessing: false,
+    hasResult: false,
+  });
 
   const refresh = async () => {
     try { setCustomers(await api.customers()); } catch (e) { setError(e.message); }
@@ -30,6 +38,7 @@ export default function App() {
             className="kalai-badge-btn"
             onClick={() => setShowKalaiModal(true)}
             title="Ask Kalai AI Assistant for guidance"
+            data-tour="tour-kalai-btn"
           >
             <span className="kalai-badge">Ask Kalai AI</span>
           </button>
@@ -103,6 +112,7 @@ export default function App() {
             }}
             onCustomerAdded={refresh}
             onError={setError}
+            onVoiceStateChange={setVoiceRecordingState}
           />
         )}
       </div>
@@ -113,6 +123,16 @@ export default function App() {
           onClose={() => setShowKalaiModal(false)}
         />
       )}
+
+      {/* ── Yazh Guided Tour — reads view state, never mutates business data ── */}
+      <YazhTour
+        currentView={view}
+        onNavigate={setView}
+        onOpenKalai={() => setShowKalaiModal(true)}
+        onCloseKalai={() => setShowKalaiModal(false)}
+        kalaiIsOpen={showKalaiModal}
+        voiceRecordingState={voiceRecordingState}
+      />
     </div>
   );
 }
@@ -250,7 +270,7 @@ function CustomerList({ customers, onSelect, onAdded, onError }) {
   const customersWithDues = customers.filter((c) => c.balancePaise > 0).length;
 
   return (
-    <div className="customer-directory">
+    <div className="customer-directory" data-tour="tour-customer-list">
       <div className="directory-header">
         <div>
           <h2>Customers</h2>
@@ -366,13 +386,32 @@ function CustomerList({ customers, onSelect, onAdded, onError }) {
 // ─────────────────────────────────────────────────────────────
 // ENTRY PANEL
 // ─────────────────────────────────────────────────────────────
-function EntryPanel({ customers, onSaved, onCustomerAdded, onError }) {
+function EntryPanel({ customers, onSaved, onCustomerAdded, onError, onVoiceStateChange }) {
   const [busy, setBusy] = useState(false);
   const [text, setText] = useState('');
   const [result, setResult] = useState(null);
   const [showVoiceModal, setShowVoiceModal] = useState(false);
 
-  const gotDraft = (r) => setResult({ ...r, key: crypto.randomUUID() });
+  useEffect(() => {
+    onVoiceStateChange?.({
+      isOpen: showVoiceModal,
+      isRecording: false,
+      canFinish: false,
+      isProcessing: busy,
+      hasResult: Boolean(result),
+    });
+  }, [showVoiceModal, busy, result, onVoiceStateChange]);
+
+  const gotDraft = (r) => {
+    setResult({ ...r, key: crypto.randomUUID() });
+    onVoiceStateChange?.({
+      isOpen: false,
+      isRecording: false,
+      canFinish: false,
+      isProcessing: false,
+      hasResult: true,
+    });
+  };
   const manual = () => setResult({
     draft: { kind: 'credit', customerName: '', items: [], totalPaise: null, transcript: '', confidence: 'high' },
     candidates: [], warnings: [], key: crypto.randomUUID(), source: 'manual'
@@ -442,13 +481,13 @@ function EntryPanel({ customers, onSaved, onCustomerAdded, onError }) {
   );
 
   return (
-    <section className="card entry-card">
+    <section className="card entry-card" data-tour="tour-entry-panel">
       <div className="entry-header">
         <h2>New Entry</h2>
         <span className="entry-sub">Speak, type, or enter manually</span>
       </div>
 
-      <button className="mic live-mic-btn" onClick={() => setShowVoiceModal(true)} disabled={busy}>
+      <button className="mic live-mic-btn" data-tour="tour-voice-btn" onClick={() => setShowVoiceModal(true)} disabled={busy}>
         {busy ? (
           <><span className="spinner-dot" /><span>Processing with Voice Engine (Gemini)...</span></>
         ) : (
@@ -497,6 +536,15 @@ function EntryPanel({ customers, onSaved, onCustomerAdded, onError }) {
         onError={onError}
         onDraftGenerated={handleVoiceDraft}
         onSwitchToManual={manual}
+        onRecordingStateChange={(state) => {
+          onVoiceStateChange?.({
+            isOpen: showVoiceModal,
+            isRecording: state.isRecording,
+            canFinish: state.canFinish,
+            isProcessing: state.isProcessing,
+            hasResult: Boolean(result),
+          });
+        }}
       />
     </section>
   );
@@ -695,11 +743,24 @@ function Review({ result, customers, onCancel, onSaved, onCustomerAdded, onError
               <span>p95: {(stats.p95 / 1000).toFixed(2)}s</span>
             </div>
           )}
-          {result.metrics.modelsAttempted && result.metrics.modelsAttempted.length > 1 && (
-            <div className="latency-chip fallback-chip" title="Multi-model automatic failover">
-              <span>Failover ({result.metrics.modelsAttempted.length} models tried)</span>
-            </div>
-          )}
+          {(() => {
+            const attempts = result.metrics.modelsAttempted || [];
+            const actualAttempts = attempts.filter((a) => a.status || a.latency_ms > 0);
+            const count = actualAttempts.length > 0 ? actualAttempts.length : attempts.length;
+            const isMultiAttempt = count > 1;
+            const trace = result.metrics.failoverTrace;
+
+            if (!isMultiAttempt && !result.metrics.failoverTriggered && !trace) return null;
+
+            return (
+              <div
+                className="latency-chip fallback-chip"
+                title={trace || `${count} actual provider/model attempts`}
+              >
+                <span>{trace ? `Failover: ${trace}` : `Failover (${count} attempts)`}</span>
+              </div>
+            );
+          })()}
         </div>
       )}
 

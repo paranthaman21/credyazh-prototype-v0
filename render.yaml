@@ -12,7 +12,7 @@ services:
       - key: GEMINI_API_KEY
         sync: false
       - key: GEMINI_MODELS
-        value: gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.7-flash,gemini-3.8-flash
+        value: gemini-3.5-flash-lite,gemini-3.5-flash
 
   # ─── 2. Backend API Server (Node.js Express) ──────────────────
   - type: web
@@ -30,7 +30,7 @@ services:
         fromService:
           type: web
           name: credyazh-ai-service
-          property: host
+          property: url
       - key: SHOP_ID
         value: demo-shop
       - key: SHOP_NAME

@@ -1,0 +1,548 @@
+{
+  "description": "CredYazh Real-World Kirana Voice Transcripts Dataset (from credyazh-prototype-g-user.ledgerevents.json)",
+  "version": "1.0.0",
+  "created_at": "2026-10-27",
+  "dataset_type": "real_world_voice_transcripts",
+  "source_file": "experiments/real-voice-test-case-json/credyazh-prototype-g-user.ledgerevents.json",
+  "total_records_in_source": 135,
+  "unique_transcripts_count": 42,
+  "cases": [
+    {
+      "id": "REAL-01",
+      "input_text": "Bharat 2 kg thakkali 2 kg vengayam 60 rupai kadan",
+      "expected": {
+        "customer_name": "Bharat",
+        "transaction_type": "credit",
+        "total_amount_rupees": 60.0,
+        "items": [
+          {"name": "Tomato", "quantity": 2.0, "unit": "kg"},
+          {"name": "Onion", "quantity": 2.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-02",
+      "input_text": "Sanjay oru kilo vengayam, oru kilo thakkali, rendu kilo ultham paruppu, motham 270 rupees baki.",
+      "expected": {
+        "customer_name": "Sanjay",
+        "transaction_type": "credit",
+        "total_amount_rupees": 270.0,
+        "items": [
+          {"name": "Onion", "quantity": 1.0, "unit": "kg"},
+          {"name": "Tomato", "quantity": 1.0, "unit": "kg"},
+          {"name": "Urad Dal", "quantity": 2.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-03",
+      "input_text": "Kishore, laesh packet rendu, 4 rooba",
+      "expected": {
+        "customer_name": "Kishore",
+        "transaction_type": "credit",
+        "total_amount_rupees": 4.0,
+        "items": [
+          {"name": "Lays", "quantity": 2.0, "unit": "packet"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-04",
+      "input_text": "Kamal, arai kilo thakkali, arai kilo vengayam 170 ruba kadan",
+      "expected": {
+        "customer_name": "Kamal",
+        "transaction_type": "credit",
+        "total_amount_rupees": 170.0,
+        "items": [
+          {"name": "Tomato", "quantity": 0.5, "unit": "kg"},
+          {"name": "Onion", "quantity": 0.5, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-05",
+      "input_text": "Krishna, 3 kg chakkarai, 2 Lays packet, Maggi 2 packet, mottham 150 ruba kadan.",
+      "expected": {
+        "customer_name": "Krishna",
+        "transaction_type": "credit",
+        "total_amount_rupees": 150.0,
+        "items": [
+          {"name": "Sugar", "quantity": 3.0, "unit": "kg"},
+          {"name": "Lays", "quantity": 2.0, "unit": "packet"},
+          {"name": "Maggi", "quantity": 2.0, "unit": "packet"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-06",
+      "input_text": "Kumar account-la 1 kg sakkarai, 140 rupees",
+      "expected": {
+        "customer_name": "Kumar",
+        "transaction_type": "credit",
+        "total_amount_rupees": 140.0,
+        "items": [
+          {"name": "Sugar", "quantity": 1.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-07",
+      "input_text": "Sanjay 100 rupa koduthirukan",
+      "expected": {
+        "customer_name": "Sanjay",
+        "transaction_type": "payment",
+        "total_amount_rupees": 100.0,
+        "amount_received_rupees": 100.0,
+        "items": []
+      }
+    },
+    {
+      "id": "REAL-08",
+      "input_text": "Kamal rendu paracetamol tablet athu kapram cofslet tablet rendu, motham 50 rupees",
+      "expected": {
+        "customer_name": "Kamal",
+        "transaction_type": "credit",
+        "total_amount_rupees": 50.0,
+        "items": [
+          {"name": "Paracetamol Tablet", "quantity": 2.0, "unit": "piece"},
+          {"name": "Cofslet Tablet", "quantity": 2.0, "unit": "piece"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-09",
+      "input_text": "Ajit 3 kg thakkali 40 rupees",
+      "expected": {
+        "customer_name": "Ajit",
+        "transaction_type": "credit",
+        "total_amount_rupees": 40.0,
+        "items": [
+          {"name": "Tomato", "quantity": 3.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-10",
+      "input_text": "Shanmugam, 4 eggs, 36 rupees",
+      "expected": {
+        "customer_name": "Shanmugam",
+        "transaction_type": "credit",
+        "total_amount_rupees": 36.0,
+        "items": [
+          {"name": "Eggs", "quantity": 4.0, "unit": "piece"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-11",
+      "input_text": "Palanivel paruppu arai kilo ambadhu roobaa",
+      "expected": {
+        "customer_name": "Palanivel",
+        "transaction_type": "credit",
+        "total_amount_rupees": 50.0,
+        "items": [
+          {"name": "Dal", "quantity": 0.5, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-12",
+      "input_text": "Ambani 3 kilo vengayam 50 roopai",
+      "expected": {
+        "customer_name": "Ambani",
+        "transaction_type": "credit",
+        "total_amount_rupees": 50.0,
+        "items": [
+          {"name": "Onion", "quantity": 3.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-13",
+      "input_text": "Rathanthatha 10 kilo ulthamparuppu, antha 4 mutta, antha maggi 2 packet, 2 chips packet, motham 370 rupees baki.",
+      "expected": {
+        "customer_name": "Rathanthatha",
+        "transaction_type": "credit",
+        "total_amount_rupees": 370.0,
+        "items": [
+          {"name": "Urad Dal", "quantity": 10.0, "unit": "kg"},
+          {"name": "Eggs", "quantity": 4.0, "unit": "piece"},
+          {"name": "Maggi", "quantity": 2.0, "unit": "packet"},
+          {"name": "Chips", "quantity": 2.0, "unit": "packet"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-14",
+      "input_text": "Sanjay 100 rupa koduthutaan",
+      "expected": {
+        "customer_name": "Sanjay",
+        "transaction_type": "payment",
+        "total_amount_rupees": 100.0,
+        "amount_received_rupees": 100.0,
+        "items": []
+      }
+    },
+    {
+      "id": "REAL-15",
+      "input_text": "Bharat oru kilo arisi, vengayam oru kilo, thakkali rendu kilo, paitham paruppu arai kilo, motham 750 roobaa.",
+      "expected": {
+        "customer_name": "Bharat",
+        "transaction_type": "credit",
+        "total_amount_rupees": 750.0,
+        "items": [
+          {"name": "Rice", "quantity": 1.0, "unit": "kg"},
+          {"name": "Onion", "quantity": 1.0, "unit": "kg"},
+          {"name": "Tomato", "quantity": 2.0, "unit": "kg"},
+          {"name": "Moong Dal", "quantity": 0.5, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-16",
+      "input_text": "Sanjay oru kilo puli 150 rupai",
+      "expected": {
+        "customer_name": "Sanjay",
+        "transaction_type": "credit",
+        "total_amount_rupees": 150.0,
+        "items": [
+          {"name": "Tamarind", "quantity": 1.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-17",
+      "input_text": "Chandru, godhumai ara kilo, pachai milakai, vengayam, mottham serthu 500 ruba.",
+      "expected": {
+        "customer_name": "Chandru",
+        "transaction_type": "credit",
+        "total_amount_rupees": 500.0,
+        "items": [
+          {"name": "Wheat", "quantity": 0.5, "unit": "kg"},
+          {"name": "Green Chillies", "quantity": null, "unit": null},
+          {"name": "Onion", "quantity": null, "unit": null}
+        ]
+      }
+    },
+    {
+      "id": "REAL-18",
+      "input_text": "Kumar oru kilo seeni 30 rooba",
+      "expected": {
+        "customer_name": "Kumar",
+        "transaction_type": "credit",
+        "total_amount_rupees": 30.0,
+        "items": [
+          {"name": "Sugar", "quantity": 1.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-19",
+      "input_text": "Sanjay Tamarind 1kg 40 rupees",
+      "expected": {
+        "customer_name": "Sanjay",
+        "transaction_type": "credit",
+        "total_amount_rupees": 40.0,
+        "items": [
+          {"name": "Tamarind", "quantity": 1.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-20",
+      "input_text": "Sanjay elaichi ara kilo, pattai ara kilo, lavangam lavangappu oru kilo, approm sombu ara kilo, manja thoole kaalu kilo, puli ara kilo, ellathala mothom oru aayiram kanaku",
+      "expected": {
+        "customer_name": "Sanjay",
+        "transaction_type": "credit",
+        "total_amount_rupees": 1000.0,
+        "items": [
+          {"name": "Cardamom", "quantity": 0.5, "unit": "kg"},
+          {"name": "Cinnamon", "quantity": 0.5, "unit": "kg"},
+          {"name": "Clove", "quantity": 1.0, "unit": "kg"},
+          {"name": "Fennel Seeds", "quantity": 0.5, "unit": "kg"},
+          {"name": "Turmeric Powder", "quantity": 0.25, "unit": "kg"},
+          {"name": "Tamarind", "quantity": 0.5, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-21",
+      "input_text": "Praveen oru kilo sakkarai, rendu Maggi packet, oru milk biscuit, total a oru 150 kadan.",
+      "expected": {
+        "customer_name": "Praveen",
+        "transaction_type": "credit",
+        "total_amount_rupees": 150.0,
+        "items": [
+          {"name": "Sugar", "quantity": 1.0, "unit": "kg"},
+          {"name": "Maggi", "quantity": 2.0, "unit": "packet"},
+          {"name": "Milk Biscuit", "quantity": 1.0, "unit": "packet"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-22",
+      "input_text": "Chandru andha 100 rooba kuduthutan,ana irukara total la konjam balance kaamikkanum, 100 rooba kuduthukan avlo dhan",
+      "expected": {
+        "customer_name": "Chandru",
+        "transaction_type": "payment",
+        "total_amount_rupees": 100.0,
+        "amount_received_rupees": 100.0,
+        "items": []
+      }
+    },
+    {
+      "id": "REAL-23",
+      "input_text": "Varadhan 100 rupa koduthurukan",
+      "expected": {
+        "customer_name": "Varadhan",
+        "transaction_type": "payment",
+        "total_amount_rupees": 100.0,
+        "amount_received_rupees": 100.0,
+        "items": []
+      }
+    },
+    {
+      "id": "REAL-24",
+      "input_text": "Kumar account la 1 kg sakkarai rendu packet paal total la vandhu 140 rupees sethuka",
+      "expected": {
+        "customer_name": "Kumar",
+        "transaction_type": "credit",
+        "total_amount_rupees": 140.0,
+        "items": [
+          {"name": "Sugar", "quantity": 1.0, "unit": "kg"},
+          {"name": "Milk", "quantity": 2.0, "unit": "packet"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-25",
+      "input_text": "Kumar 200 rupees kuduthutu, 70 rupees-ku arisi vaanginaan",
+      "expected": {
+        "customer_name": "Kumar",
+        "transaction_type": "combined",
+        "amount_received_rupees": 200.0,
+        "new_credit_rupees": 70.0,
+        "total_amount_rupees": 70.0,
+        "items": [
+          {"name": "Rice", "quantity": null, "unit": null}
+        ]
+      }
+    },
+    {
+      "id": "REAL-26",
+      "input_text": "Kumar 200 rupees kuduthaan athu kapram 70 rupees ki arisi vaangirukaan",
+      "expected": {
+        "customer_name": "Kumar",
+        "transaction_type": "combined",
+        "amount_received_rupees": 200.0,
+        "new_credit_rupees": 70.0,
+        "total_amount_rupees": 70.0,
+        "items": [
+          {"name": "Rice", "quantity": null, "unit": null}
+        ]
+      }
+    },
+    {
+      "id": "REAL-27",
+      "input_text": "Rajanikanth 2 kilo vengayam, apparam tomato, verakkadalai yarai kilo, apparam 2 mutta 170 roova kadanla potukko.",
+      "expected": {
+        "customer_name": "Rajanikanth",
+        "transaction_type": "credit",
+        "total_amount_rupees": 170.0,
+        "items": [
+          {"name": "Onion", "quantity": 2.0, "unit": "kg"},
+          {"name": "Tomato", "quantity": null, "unit": null},
+          {"name": "Peanuts", "quantity": 0.5, "unit": "kg"},
+          {"name": "Eggs", "quantity": 2.0, "unit": "piece"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-28",
+      "input_text": "Rajanikanth thandhura kuduthurukaru",
+      "expected": {
+        "customer_name": "Rajanikanth",
+        "transaction_type": "payment",
+        "total_amount_rupees": null,
+        "items": []
+      }
+    },
+    {
+      "id": "REAL-29",
+      "input_text": "Kumar account la oru 1/2 kg thakkali athukku aprom oru 3 kg vengayam mottam oru 50 rova pottuko",
+      "expected": {
+        "customer_name": "Kumar",
+        "transaction_type": "credit",
+        "total_amount_rupees": 50.0,
+        "items": [
+          {"name": "Tomato", "quantity": 0.5, "unit": "kg"},
+          {"name": "Onion", "quantity": 3.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-30",
+      "input_text": "Rendu Maggi packet, rendu mutta, oru Colgate paste, nuru rooba",
+      "expected": {
+        "customer_name": "",
+        "transaction_type": "credit",
+        "total_amount_rupees": 100.0,
+        "items": [
+          {"name": "Maggi", "quantity": 2.0, "unit": "packet"},
+          {"name": "Eggs", "quantity": 2.0, "unit": "piece"},
+          {"name": "Colgate Paste", "quantity": 1.0, "unit": "piece"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-31",
+      "input_text": "Sanjay 100 rupaa kuduthirukaan",
+      "expected": {
+        "customer_name": "Sanjay",
+        "transaction_type": "payment",
+        "total_amount_rupees": 100.0,
+        "amount_received_rupees": 100.0,
+        "items": []
+      }
+    },
+    {
+      "id": "REAL-32",
+      "input_text": "Chandru oru kilo thakkali 50 rova",
+      "expected": {
+        "customer_name": "Chandru",
+        "transaction_type": "credit",
+        "total_amount_rupees": 50.0,
+        "items": [
+          {"name": "Tomato", "quantity": 1.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-33",
+      "input_text": "Meenakshi 100 rupees or 1 kg tomato",
+      "expected": {
+        "customer_name": "Meenakshi",
+        "transaction_type": "credit",
+        "total_amount_rupees": 100.0,
+        "items": [
+          {"name": "Tomato", "quantity": 1.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-34",
+      "input_text": "1/2 kilo godhumai, 1/2 kilo rava, 1/4 kilo ulunthamparuppu, 120 rupees Ajith perla",
+      "expected": {
+        "customer_name": "Ajith",
+        "transaction_type": "credit",
+        "total_amount_rupees": 120.0,
+        "items": [
+          {"name": "Wheat", "quantity": 0.5, "unit": "kg"},
+          {"name": "Rava", "quantity": 0.5, "unit": "kg"},
+          {"name": "Urad Dal", "quantity": 0.25, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-35",
+      "input_text": "Kaviya, 2 kilo arisi, 2 packet Maggi, 85 rupees.",
+      "expected": {
+        "customer_name": "Kaviya",
+        "transaction_type": "credit",
+        "total_amount_rupees": 85.0,
+        "items": [
+          {"name": "Rice", "quantity": 2.0, "unit": "kg"},
+          {"name": "Maggi", "quantity": 2.0, "unit": "packet"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-36",
+      "input_text": "Kavya maran 2 kilo arisi 2 kilo vengayam 65 rupai",
+      "expected": {
+        "customer_name": "Kavya maran",
+        "transaction_type": "credit",
+        "total_amount_rupees": 65.0,
+        "items": [
+          {"name": "Rice", "quantity": 2.0, "unit": "kg"},
+          {"name": "Onion", "quantity": 2.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-37",
+      "input_text": "Raghu 1 kg onion 20 rupees",
+      "expected": {
+        "customer_name": "Raghu",
+        "transaction_type": "credit",
+        "total_amount_rupees": 20.0,
+        "items": [
+          {"name": "Onion", "quantity": 1.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-38",
+      "input_text": "Rahul 10 rupees kuduthirukanga",
+      "expected": {
+        "customer_name": "Rahul",
+        "transaction_type": "payment",
+        "total_amount_rupees": 10.0,
+        "amount_received_rupees": 10.0,
+        "items": []
+      }
+    },
+    {
+      "id": "REAL-39",
+      "input_text": "Vijay, rendu oodhavathi packet, 6 kg vengayam, rendu maggi",
+      "expected": {
+        "customer_name": "Vijay",
+        "transaction_type": "credit",
+        "total_amount_rupees": null,
+        "items": [
+          {"name": "Incense Sticks", "quantity": 2.0, "unit": "packet"},
+          {"name": "Onion", "quantity": 6.0, "unit": "kg"},
+          {"name": "Maggi", "quantity": 2.0, "unit": "packet"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-40",
+      "input_text": "Shanmuga Pulla Balaji 1 kg pasiparuppu 130 rupai",
+      "expected": {
+        "customer_name": "Balaji",
+        "transaction_type": "credit",
+        "total_amount_rupees": 130.0,
+        "items": [
+          {"name": "Moong Dal", "quantity": 1.0, "unit": "kg"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-41",
+      "input_text": "Kimu got 1 kg chocolates, 4 packets of chips and 1 liter of juice total 500",
+      "expected": {
+        "customer_name": "Kimu",
+        "transaction_type": "credit",
+        "total_amount_rupees": 500.0,
+        "items": [
+          {"name": "Chocolates", "quantity": 1.0, "unit": "kg"},
+          {"name": "Chips", "quantity": 4.0, "unit": "packet"},
+          {"name": "Juice", "quantity": 1.0, "unit": "litre"}
+        ]
+      }
+    },
+    {
+      "id": "REAL-42",
+      "input_text": "Arumugam payyan Balaji account la oru 20 rupa kanakku rendu milk biscuit",
+      "expected": {
+        "customer_name": "Balaji",
+        "transaction_type": "credit",
+        "total_amount_rupees": 20.0,
+        "items": [
+          {"name": "Milk Biscuit", "quantity": 2.0, "unit": "packet"}
+        ]
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { startRecording } from './recorder.js';
 
-export default function LiveVoiceModal({ isOpen, onClose, onDraftGenerated, onError, onSwitchToManual }) {
+export default function LiveVoiceModal({ isOpen, onClose, onDraftGenerated, onError, onSwitchToManual, onRecordingStateChange }) {
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingStage, setProcessingStage] = useState('idle'); // 'encoding' | 'uploading' | 'interpreting' | 'preparing' | 'ready'
@@ -9,6 +9,15 @@ export default function LiveVoiceModal({ isOpen, onClose, onDraftGenerated, onEr
   const [seconds, setSeconds] = useState(0);
   const [voiceDetected, setVoiceDetected] = useState(false);
   const [volumePercent, setVolumePercent] = useState(0);
+
+  useEffect(() => {
+    onRecordingStateChange?.({
+      isRecording,
+      canFinish: !isProcessing && seconds >= 1,
+      isProcessing,
+      seconds,
+    });
+  }, [isRecording, isProcessing, seconds, onRecordingStateChange]);
 
   const recorderRef = useRef(null);
   const timerRef = useRef(null);
@@ -359,7 +368,7 @@ export default function LiveVoiceModal({ isOpen, onClose, onDraftGenerated, onEr
               <span className="reassurance-title">Taking a few seconds longer</span>
             </div>
             <p className="reassurance-text">
-              High Gemini AI traffic detected. CredYazh is processing your note with fallback models. You can wait or switch to manual entry anytime.
+              Taking longer than usual — the AI may be busy or the network is slow. CredYazh will keep trying. You can wait or switch to manual entry anytime.
             </p>
             <div className="reassurance-actions">
               <button
@@ -408,6 +417,7 @@ export default function LiveVoiceModal({ isOpen, onClose, onDraftGenerated, onEr
             <button
               type="button"
               className="voice-btn-submit"
+              data-tour="tour-finish-btn"
               onClick={handleDone}
               disabled={seconds < 1}
             >
